@@ -10,6 +10,8 @@ import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     ImageButton imgButton;
+    public MediaPlayer mp;
+    public int flujodemusica=0;
 
 
     @Override
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //fullscreen activity
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+
 
         //Cambia de activity
         imgButton = (ImageButton) findViewById(R.id.imgButtonLetsdothis);
@@ -32,12 +35,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.imgButtonLetsdothis:
 
+                mp= MediaPlayer.create(this, R.raw.chinpokomon);
+                mp.start();
+
 
                 //Audio audio = new Audio();
                 //audio.stopIntroChimpoko(this);
 
-                Intent intent = new Intent(MainActivity.this,SelectCharacter.class);
-                startActivity(intent);
+                // Intent intent = new Intent(MainActivity.this,SelectCharacter.class);
+                //startActivity(intent);
 
                 //Detiene audio de intro
 
