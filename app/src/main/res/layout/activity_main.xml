@@ -15,7 +15,6 @@
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:
         app:srcCompat="@drawable/chinpokomon_screen"
         android:id="@+id/imgViewlogo"
         android:adjustViewBounds="false"
