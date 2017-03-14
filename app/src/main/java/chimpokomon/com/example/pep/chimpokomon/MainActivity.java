@@ -10,7 +10,8 @@ import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     ImageButton imgButton;
-    public MediaPlayer mp;
+    public MediaPlayer mpchimpoko;
+    public MediaPlayer mpStreetFighter;
     public int flujodemusica=0;
 
 
@@ -27,7 +28,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         imgButton.setOnClickListener(this);
 
         //Inicia audio intro
-
+        mpchimpoko= MediaPlayer.create(this, R.raw.chinpokomon);
+        mpchimpoko.start();
     }
 
     @Override
@@ -35,22 +37,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.imgButtonLetsdothis:
 
-                mp= MediaPlayer.create(this, R.raw.chinpokomon);
-                mp.start();
-
-
-                //Audio audio = new Audio();
-                //audio.stopIntroChimpoko(this);
-
-                // Intent intent = new Intent(MainActivity.this,SelectCharacter.class);
-                //startActivity(intent);
-
                 //Detiene audio de intro
+                mpchimpoko.stop();
+                //Inicia audio de streetfighter
+                mpStreetFighter = MediaPlayer.create(MainActivity.this, R.raw.streetfightersong);
+                mpStreetFighter.start();
 
+                //Cambia de activity a seleccion de chinpokomon
+                Intent intent = new Intent(MainActivity.this,SelectCharacter.class);
+                startActivity(intent);
 
-                //Inicia audio de seleccion de chimpokomon
-                //MediaPlayer mpStreetFighter = MediaPlayer.create(MainActivity.this, R.raw.streetfightersong);
-                //mpStreetFighter.start();
             break;
         }
     }
