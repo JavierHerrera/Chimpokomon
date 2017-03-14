@@ -11,7 +11,6 @@ import android.widget.ImageButton;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     ImageButton imgButton;
     public MediaPlayer mpchimpoko;
-    public MediaPlayer mpStreetFighter;
     public int flujodemusica=0;
 
 
@@ -26,10 +25,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Cambia de activity
         imgButton = (ImageButton) findViewById(R.id.imgButtonLetsdothis);
         imgButton.setOnClickListener(this);
-
-        //Inicia audio intro
-        mpchimpoko= MediaPlayer.create(this, R.raw.chinpokomon);
-        mpchimpoko.start();
     }
 
     @Override
@@ -37,16 +32,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.imgButtonLetsdothis:
 
-                //Detiene audio de intro
-                mpchimpoko.stop();
-                //Inicia audio de streetfighter
-                mpStreetFighter = MediaPlayer.create(MainActivity.this, R.raw.streetfightersong);
-                mpStreetFighter.start();
+                //Inicia audio inicio
+                mpchimpoko= MediaPlayer.create(this, R.raw.chinpokomon_roar);
+                mpchimpoko.start();
 
-                //Cambia de activity a seleccion de chinpokomon
-                Intent intent = new Intent(MainActivity.this,SelectCharacter.class);
-                startActivity(intent);
+                //Verifica que se termine el audio para realizar alguna accion
+                mpchimpoko.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    public void onCompletion(MediaPlayer mp) {
+                        finish(); // al finalizar el audio realiza lo siguiente
 
+                        //Cambia de activity a seleccion de chinpokomon
+                        Intent intent = new Intent(MainActivity.this, SelectCharacter.class);
+                        startActivity(intent);
+                    }
+                });
             break;
         }
     }
