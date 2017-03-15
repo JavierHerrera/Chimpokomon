@@ -3,6 +3,7 @@ package chimpokomon.com.example.pep.chimpokomon;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.GridView;
 
 public class SelectCharacter extends AppCompatActivity {
 

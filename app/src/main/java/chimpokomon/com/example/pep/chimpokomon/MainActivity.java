@@ -11,7 +11,6 @@ import android.widget.ImageButton;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     ImageButton imgButton;
     public MediaPlayer mpchimpoko;
-    public int flujodemusica=0;
 
 
     @Override
