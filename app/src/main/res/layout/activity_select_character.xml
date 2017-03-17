@@ -16,15 +16,14 @@
         android:layout_height="match_parent"
         android:id="@+id/imageView"
         android:layout_alignParentStart="true"
-        android:background="@drawable/img_streetfighter" />
+        android:background="@drawable/img_streetfighter"
+        />
 
-    <GridView
-        android:id="@+id/gridViewCharacters"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="300dp"
-        android:columnWidth="50dp"
-        android:numColumns="auto_fit"
-        android:gravity="center"/>
+        />
 
 </RelativeLayout>
