@@ -5,25 +5,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.GridView;
-import android.widget.HorizontalScrollView;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SelectCharacter extends AppCompatActivity {
 
-    public MediaPlayer mpStreetFighter;
-    private RecyclerView mRecyclerView;
-    private RecyclerView.LayoutManager mLayoutManager;
-    private RecyclerView.Adapter mAdapter;
-    private ArrayList<String> mDataset;
-
+    // Variable para la musica
+    private MediaPlayer mpStreetFighter;
+    // Declarar instancias globales de RecyclerView
+    private RecyclerView recycler;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager lManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,18 +27,24 @@ public class SelectCharacter extends AppCompatActivity {
         mpStreetFighter = MediaPlayer.create(SelectCharacter.this, R.raw.streetfightersong);
         mpStreetFighter.start();
 
-        //RecyclerView
-        mDataset = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
-            mDataset.add("New Title # " + i);
-        }
+        // Inicializar Animes
+        List items = new ArrayList();
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new MainAdapter(mDataset);
-        mRecyclerView.setAdapter(mAdapter);
+        items.add(new Characters(R.drawable.gridview_mousetik, "Mousetik", 230));
+        items.add(new Characters(R.drawable.gridview_pengin, "Penguin", 456));
+        items.add(new Characters(R.drawable.gridview_shoe, "Shoe", 342));
+
+        // Obtener el Recycler
+        recycler = (RecyclerView) findViewById(R.id.reciclador);
+        recycler.setHasFixedSize(true);
+
+        // Usar un administrador para LinearLayout
+        lManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
+        recycler.setLayoutManager(lManager);
+
+        // Crear un nuevo adaptador
+        adapter = new CharactersAdapter(items);
+        recycler.setAdapter(adapter);
 
     }
 }
