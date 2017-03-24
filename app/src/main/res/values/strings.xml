@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Chimpokomon</string>
+    <string name="title_activity_battle">Battle</string>
 </resources>
