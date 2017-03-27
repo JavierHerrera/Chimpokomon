@@ -12,7 +12,7 @@ import android.widget.Button;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectCharacter extends AppCompatActivity implements View.OnClickListener {
+public class SelectCharacterActivity extends AppCompatActivity implements View.OnClickListener {
 
     //Boton de prueba para cambiar a layout de batalla
     Button test_battle_button;
@@ -26,6 +26,7 @@ public class SelectCharacter extends AppCompatActivity implements View.OnClickLi
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager lManager;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,15 +37,15 @@ public class SelectCharacter extends AppCompatActivity implements View.OnClickLi
         test_battle_button.setOnClickListener(this);
 
         //Inicia audio de streetfighter
-        mpStreetFighter = MediaPlayer.create(SelectCharacter.this, R.raw.streetfightersong);
+        mpStreetFighter = MediaPlayer.create(SelectCharacterActivity.this, R.raw.streetfightersong);
         mpStreetFighter.start();
 
         // Inicializar Animes
         List items = new ArrayList();
 
-        items.add(new Characters(R.drawable.gridview_mousetik, "Mousetik", 230, R.drawable.type_grass));
-        items.add(new Characters(R.drawable.gridview_pengin, "Penguin", 456, R.drawable.type_water));
-        items.add(new Characters(R.drawable.gridview_shoe, "Shoe", 342, R.drawable.type_fire));
+        items.add(new CharactersCardView(R.drawable.gridview_mousetik, "Mousetik", 230, R.drawable.type_grass));
+        items.add(new CharactersCardView(R.drawable.gridview_pengin, "Penguin", 456, R.drawable.type_water));
+        items.add(new CharactersCardView(R.drawable.gridview_shoe, "Shoe", 342, R.drawable.type_fire));
 
         // Obtener el Recycler
         recycler = (RecyclerView) findViewById(R.id.reciclador);
@@ -70,12 +71,14 @@ public class SelectCharacter extends AppCompatActivity implements View.OnClickLi
                 mpStreetFighter.stop();
                 mpSeleccionarPersonaje.start();
 
+
+
                 mpSeleccionarPersonaje.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     public void onCompletion(MediaPlayer mp) {
                         finish(); // al finalizar el audio realiza lo siguiente
 
                     //Cambia de activity a batalla
-                    Intent intent = new Intent(SelectCharacter.this, Battle.class);
+                    Intent intent = new Intent(SelectCharacterActivity.this, BattleActivity.class);
                     startActivity(intent);
                     }
                 });

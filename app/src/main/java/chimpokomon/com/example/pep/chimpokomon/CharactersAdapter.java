@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.AnimeViewHolder> {
-    private List<Characters> items;
+    private List<CharactersCardView> items;
 
     public static class AnimeViewHolder extends RecyclerView.ViewHolder {
         // Campos respectivos de un item
@@ -28,7 +28,7 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.An
         }
     }
 
-    public CharactersAdapter(List<Characters> items) {
+    public CharactersAdapter(List<CharactersCardView> items) {
         this.items = items;
     }
 

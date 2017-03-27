@@ -1,9 +1,9 @@
 package chimpokomon.com.example.pep.chimpokomon;
 
-public class Moves {
+public class BDMoves {
 
-    String [][] bd_ataques = new String[6][3];
-    public  void inicializar_moves(){
+    String [][] bd_ataques = new String[7][3];
+    public   BDMoves(){
 
         //Nombre, tipo, daño
         bd_ataques[0][0] = "Ember";
@@ -29,6 +29,10 @@ public class Moves {
         bd_ataques[5][0] = "Tackle";
         bd_ataques[5][1] = "Normal";
         bd_ataques[5][2] = "40";
+
+        bd_ataques[6][0] = "Tackle";
+        bd_ataques[6][1] = "Normal";
+        bd_ataques[6][2] = "40";
 
     }
 }

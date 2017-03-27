@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         finish(); // al finalizar el audio realiza lo siguiente
 
                         //Cambia de activity a seleccion de chinpokomon
-                        Intent intent = new Intent(MainActivity.this, SelectCharacter.class);
+                        Intent intent = new Intent(MainActivity.this, SelectCharacterActivity.class);
                         startActivity(intent);
                     }
                 });
