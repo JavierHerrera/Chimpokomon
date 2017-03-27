@@ -1,5 +1,7 @@
 package chimpokomon.com.example.pep.chimpokomon;
 
+import java.util.Timer;
+
 public class BDMoves {
 
     String [][] bd_ataques = new String[7][3];

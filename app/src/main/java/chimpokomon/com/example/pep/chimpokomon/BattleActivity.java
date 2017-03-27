@@ -14,6 +14,7 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
     ProgressBar pgrHPCPU,pgrHPPlayer;
     MediaPlayer mpMusicBattle;
     Button btnAtaque1, btnAtaque2, btnAtaque3, btnAtaque4;
+    TextView textView_HPplayer1, textView_HPplayer2;
 
     //Se inicializa objeto motorBatalla y se pasan los ID de los 2 personajes
    MotorBatalla motorBatalla = new MotorBatalla(1,2);
@@ -52,15 +53,20 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
 
         //Se inicializa el texto en la batalla y se pone como prueba el nombre del primer ataque
         textViewBattle = (TextView) findViewById(R.id.textoBatalla);
-        textViewBattle.setText((String)motorBatalla.player1.move1);
-
+        //TextView de HP
+        textView_HPplayer1 = (TextView) findViewById(R.id.textViewHPViewChinpoPlayer1);
+        textView_HPplayer1.setText(""+motorBatalla.player1.hp);
+        textView_HPplayer2 = (TextView) findViewById(R.id.textViewHPViewChinpoCPU);
+        textView_HPplayer2.setText(""+ motorBatalla.player2.hp);
 
         //Se crea ProgresBar y texto de batalla TEST
-        pgrHPCPU = (ProgressBar) findViewById(R.id.progressBarHPCPU);
         pgrHPPlayer = (ProgressBar) findViewById(R.id.progressBarHPPlayer);
-
+        pgrHPCPU = (ProgressBar) findViewById(R.id.progressBarHPCPU);
         //Cargar barras hp
-        setPgrBoth( (int) motorBatalla.player1.hp,(int)motorBatalla.player2.hp);
+        pgrHPPlayer.setMax((int) motorBatalla.player1.hp);
+        pgrHPCPU.setMax((int) motorBatalla.player2.hp);
+        pgrHPPlayer.setProgress((int) motorBatalla.player1.hp);
+        pgrHPCPU.setProgress((int) motorBatalla.player2.hp);
     }
 
     @Override
@@ -70,59 +76,67 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
 
                 //Inicializa el combate
                 motorBatalla.combate((String) btnAtaque1.getText(),1);
-                setPgrHPCPU((int)motorBatalla.defensor.hp);
-                textViewBattle.setText(motorBatalla.leyenda + " HP:" + motorBatalla.defensor.hp);
+                actualizarProgresBarHP((int)motorBatalla.player1.hp,(int)motorBatalla.player2.hp);
+                textViewBattle.setText(motorBatalla.leyenda + " Daño:" + motorBatalla.damage_done);
+
                 break;
 
             case R.id.button_attack2:
 
                 //Inicializa el combate
                 motorBatalla.combate((String) btnAtaque2.getText(),1);
-                setPgrHPCPU((int)motorBatalla.defensor.hp);
-                textViewBattle.setText(motorBatalla.leyenda + " HP:" + motorBatalla.defensor.hp);
+                actualizarProgresBarHP((int)motorBatalla.player1.hp,(int)motorBatalla.player2.hp);
+                textViewBattle.setText(motorBatalla.leyenda + " Daño:" + motorBatalla.damage_done);
+
                 break;
 
             case R.id.button_attack3:
 
-                pgrHPCPU.setProgress(pgrHPCPU.getMax());
-                motorBatalla.player1.hp = pgrHPCPU.getMax();
-                pgrHPPlayer.setProgress(pgrHPPlayer.getMax());
-                motorBatalla.player2.hp=pgrHPPlayer.getMax();
+                fullRestore();
                 break;
 
             case R.id.button_attack4:
 
                 //Inicializa el combate de CPU prueba
                 String ataqueCPU;
-                if ( 1 == (int) (Math.random() * 2) ) {
-                ataqueCPU = motorBatalla.player2.move1;
-                }
-                else{
-                    ataqueCPU = motorBatalla.player2.move2;
-                }
+                if ( 1 == (int) (Math.random() * 2) )
+                {ataqueCPU = motorBatalla.player2.move1;}
+                else
+                {ataqueCPU = motorBatalla.player2.move2;}
 
                 motorBatalla.combate(ataqueCPU,2);
-                setPgrHPPlayer((int)motorBatalla.atacante.hp);
-                textViewBattle.setText(motorBatalla.leyenda + " HP:" + motorBatalla.atacante.hp);
+                actualizarProgresBarHP((int)motorBatalla.player1.hp,(int)motorBatalla.player2.hp);
+                textViewBattle.setText(motorBatalla.leyenda + " Daño:" + motorBatalla.damage_done);
                 break;
         }
     }
 
-    public void setPgrHPCPU(int cpu_hp){
-        pgrHPCPU.setProgress(cpu_hp);
+    public void actualizarProgresBarHP(int player1HP, int player2HP ){
+        pgrHPPlayer.setProgress(player1HP);
+        pgrHPCPU.setProgress(player2HP);
 
+        actualizar_contadores_HP();
     }
-    public void setPgrHPPlayer(int player_hp){
-        pgrHPPlayer.setProgress(player_hp);
 
+    public void fullRestore(){
+        pgrHPPlayer.setProgress(pgrHPPlayer.getMax());
+        pgrHPCPU.setProgress(pgrHPCPU.getMax());
+
+        motorBatalla.player1.hp = pgrHPPlayer.getMax();
+        motorBatalla.player2.hp = pgrHPCPU.getMax();
+        actualizar_contadores_HP();
     }
-    public void setPgrBoth(int player_hp, int cpu_hp){
-        pgrHPPlayer.setMax(player_hp);
-        pgrHPCPU.setMax(cpu_hp);
-        pgrHPPlayer.setProgress(player_hp);
-        pgrHPCPU.setProgress(cpu_hp);
 
-
+    public void actualizar_contadores_HP()   {
+        textView_HPplayer1.setText(""+ motorBatalla.player1.hp);
+        textView_HPplayer2.setText(""+ motorBatalla.player2.hp);
+    }
+    public void esperar (int segundos) {
+        try {
+            Thread.sleep (segundos*1000);
+        } catch (Exception e) {
+// Mensaje en caso de que falle
+        }
     }
 }
 

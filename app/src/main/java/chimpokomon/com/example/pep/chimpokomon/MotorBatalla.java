@@ -1,5 +1,7 @@
 package chimpokomon.com.example.pep.chimpokomon;
 
+import android.widget.TextView;
+
 public class MotorBatalla {
 
     //El modificador se utiliza para bd_ataques super efectivos
@@ -10,6 +12,7 @@ public class MotorBatalla {
     private int move_damage;
     private String move_used;
     public String leyenda;
+    public int damage_done;
 
     //Cargar datos
     BDMoves BDMoves = new BDMoves();
@@ -37,6 +40,7 @@ public class MotorBatalla {
         modificador_leyenda = "";
         move_damage = 1;
         move_used = ataque;
+        damage_done = 0;
 
         //Seleccionar quien es el que ataca y defiende
         if (a==1){
@@ -65,7 +69,6 @@ public class MotorBatalla {
 
         String move_type;
         int i=0;
-
 
         //Se busca el ataque en BD para trabajar con su informacion
         while (ataque != BDMoves.bd_ataques[i][0]){
@@ -112,6 +115,7 @@ public class MotorBatalla {
 
         //Se resta el hp del daño
         defensor.hp = defensor.hp - move_damage * modificador;
+        damage_done = (int) (move_damage * modificador);
         leyenda = modificador_leyenda;
 
         //Se regresan los datos
@@ -124,5 +128,4 @@ public class MotorBatalla {
             player1 = defensor;
         }
     }
-
 }
