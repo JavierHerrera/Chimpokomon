@@ -51,4 +51,6 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.An
         viewHolder.visitas.setText("Visitas:"+String.valueOf(items.get(i).getVisitas()));
         viewHolder.tipo_elemento.setImageResource(items.get(i).getType());
     }
+
+    }
 }

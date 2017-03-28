@@ -12,7 +12,7 @@ public class Personaje {
 
     public Personaje(int ID){
 
-        ID = ID-1;
+        ID = ID;
         BDChinpokomones test = new BDChinpokomones();
 
         nombre = test.c[ID][1];

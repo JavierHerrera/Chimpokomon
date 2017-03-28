@@ -12,8 +12,6 @@
     android:background="#EBEBEB"
     tools:context="chimpokomon.com.example.pep.chimpokomon.BattleActivity"
     >
-
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -31,20 +29,11 @@
         android:layout_alignParentEnd="true"
         >
 
-        <TextView
-            android:id="@+id/textViewNombreChinpoCPU"
-            android:text="@string/textViewNombreChinpoCPU"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:textColor="#39393d"
-            android:textAppearance="@style/TextAppearance.AppCompat" />
-
         <ImageView
-            android:id="@+id/imageCPU"
+            android:id="@+id/imagePlayer2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/gridview_pengin"
+            app:srcCompat="@drawable/gridview_penguin"
             android:layout_margin="20dp"
             android:contentDescription="@null"
             />
@@ -108,15 +97,14 @@
         >
 
         <ImageView
-            android:id="@+id/imagePlayer"
+            android:id="@+id/imagePlayer1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/gridview_mousetik"
+            app:srcCompat="@drawable/gridview_shoe"
             android:layout_margin="20dp"
             android:contentDescription="@null"
             />
     </FrameLayout>
-
     <RelativeLayout
         android:id="@+id/layoutHPPlayer"
         android:layout_width="match_parent"
@@ -127,7 +115,6 @@
         android:layout_marginBottom="40dp"
         android:layout_toRightOf="@+id/layoutImgPlayer"
         >
-
         <TextView
             android:id="@+id/textViewNombreChinpoPlayer1"
             android:text="NOMBRE1"
@@ -138,16 +125,13 @@
             android:layout_marginLeft="3dp"
             />
         <View
+            android:id="@+id/fondoHPbarPlayer1"
             android:layout_width="match_parent"
             android:layout_height="10pt"
             android:background="@drawable/border_barra_hp"
-            android:id="@+id/fondoHPbar"
             android:layout_below="@id/textViewNombreChinpoPlayer1"
             >
-
-
         </View>
-
         <TextView
             android:id="@+id/textViewHPChinpoPlayer1"
             android:text="HP"
@@ -160,7 +144,6 @@
             android:layout_marginRight="1dp"
             android:textColor="#1dff3b"
             />
-
         <ProgressBar
             android:id="@+id/progressBarHPPlayer"
             style="?android:attr/progressBarStyleHorizontal"
@@ -173,10 +156,9 @@
             android:layout_marginTop="1pt"
             android:layout_marginRight="1pt"
             />
-
         <TextView
-            android:id="@+id/textViewHPViewChinpoPlayer1"
-            android:text="120"
+            android:id="@+id/textView_HPmax_Player1"
+            android:text="/120"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#39393d"
@@ -184,54 +166,83 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="2dp"
             />
-
-
-
+        <TextView
+            android:id="@+id/textView_HPcurrent_Player1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/textView_HPmax_Player1"
+            android:layout_below="@id/progressBarHPPlayer"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="1dp"
+            android:text="120"
+            android:textColor="#39393d"
+        />
     </RelativeLayout>
-    <FrameLayout
+    <RelativeLayout
         android:id="@+id/layoutHPCPU"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/border_info"
-        android:padding="10dp"
+        android:padding="7dp"
         android:layout_marginTop="40dp"
-        android:layout_toLeftOf="@id/layoutImgHPCPU"
+        android:layout_toLeftOf="@+id/layoutImgHPCPU"
         >
 
-        <ProgressBar
-            android:id="@+id/progressBarHPCPU"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|center"
-            android:progressDrawable="@drawable/progres_bar_color"
-            android:layout_marginLeft="15dp"
-            android:progress="50"
-            />
         <TextView
-            android:id="@+id/textViewHPChinpoCPU"
+            android:id="@+id/textViewNombreChinpoPlayer2"
+            android:text="NOMBRE1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#39393d"
+            android:textStyle="bold"
+            android:layout_marginLeft="3dp"
+            />
+        <View
+            android:id="@+id/fondoHPbarPlayer2"
+            android:layout_width="match_parent"
+            android:layout_height="10pt"
+            android:background="@drawable/border_barra_hp"
+            android:layout_below="@id/textViewNombreChinpoPlayer2"
+            >
+        </View>
+        <TextView
+            android:id="@+id/textViewHPChinpoPlayer2"
             android:text="HP"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:textColor="#39393d"
-
-
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/textViewNombreChinpoPlayer2"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="1pt"
+            android:layout_marginRight="1dp"
+            android:textColor="#1dff3b"
+            />
+        <ProgressBar
+            android:id="@+id/progressBarHPPlayer2"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:progressDrawable="@drawable/progres_bar_color"
+            android:progress="50"
+            android:layout_toEndOf="@+id/textViewHPChinpoPlayer2"
+            android:layout_below="@id/textViewNombreChinpoPlayer2"
+            android:layout_marginTop="1pt"
+            android:layout_marginRight="1pt"
             />
         <TextView
             android:id="@+id/textViewHPViewChinpoCPU"
             android:text="120"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
             android:textColor="#39393d"
+            android:layout_below="@id/progressBarHPPlayer2"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="2dp"
 
 
             />
 
-
-
-    </FrameLayout>
+    </RelativeLayout>
 
 
 

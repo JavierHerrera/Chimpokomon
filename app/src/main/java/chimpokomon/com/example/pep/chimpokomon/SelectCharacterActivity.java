@@ -44,7 +44,7 @@ public class SelectCharacterActivity extends AppCompatActivity implements View.O
         List items = new ArrayList();
 
         items.add(new CharactersCardView(R.drawable.gridview_mousetik, "Mousetik", 230, R.drawable.type_grass));
-        items.add(new CharactersCardView(R.drawable.gridview_pengin, "Penguin", 456, R.drawable.type_water));
+        items.add(new CharactersCardView(R.drawable.gridview_penguin, "Penguin", 456, R.drawable.type_water));
         items.add(new CharactersCardView(R.drawable.gridview_shoe, "Shoe", 342, R.drawable.type_fire));
 
         // Obtener el Recycler

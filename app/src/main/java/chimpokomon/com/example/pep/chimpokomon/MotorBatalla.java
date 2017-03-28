@@ -18,17 +18,17 @@ public class MotorBatalla {
     BDMoves BDMoves = new BDMoves();
 
     //Cargar los 2 objetos chinpokomones
-    int id,id2,flag_quienAtacayDefiende;
-    Personaje player1 = new Personaje(1);
-    Personaje player2 = new Personaje(2);
+    int flag_quienAtacayDefiende;
+    Personaje player1;
+    Personaje player2;
     Personaje atacante;
     Personaje defensor;
 
 
     public  MotorBatalla( int id, int id2){
 
-        this.id = id;
-        this.id2 = id;
+        player1 = new Personaje(id);
+        player2 = new Personaje(id2);
     }
 
     public void combate(String ataque, int a) {
