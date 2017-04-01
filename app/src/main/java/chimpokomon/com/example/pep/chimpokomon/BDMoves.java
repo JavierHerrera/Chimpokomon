@@ -7,7 +7,7 @@ public class BDMoves {
     String [][] bd_ataques = new String[7][3];
     public   BDMoves(){
 
-        //Nombre, tipo, daño
+        //Nombre, tipo, daño,accuracy
         bd_ataques[0][0] = "Ember";
         bd_ataques[0][1] = "fire";
         bd_ataques[0][2] = "40";

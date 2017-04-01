@@ -12,24 +12,36 @@ import android.widget.Button;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectCharacterActivity extends AppCompatActivity implements View.OnClickListener {
+public class SelectCharacterActivity extends AppCompatActivity implements View.OnClickListener,MyInterface {
 
     //Boton de prueba para cambiar a layout de batalla
     Button test_battle_button;
 
     // Variable para la musica
     private MediaPlayer mpStreetFighter;
-    private MediaPlayer mpSeleccionarPersonaje;
+    private  MediaPlayer mpSeleccionarPersonaje;
 
     // Declarar instancias globales de RecyclerView
     private RecyclerView recycler;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager lManager;
 
+    //Test
+    static int seleccion1;
+    private CharactersAdapter mMyAdapter;
+
+    @Override
+    public void foo() {
+        callbackclick();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Se pasa el context al objeto mMyAdapter
+        this.mMyAdapter = new CharactersAdapter(this);
+
         setContentView(R.layout.activity_select_character);
 
         //Inicializar botton dep rueba
@@ -58,32 +70,35 @@ public class SelectCharacterActivity extends AppCompatActivity implements View.O
         // Crear un nuevo adaptador
         adapter = new CharactersAdapter(items);
         recycler.setAdapter(adapter);
-
     }
 
+    //Sin uso por el momento
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.test_battle_button:
 
-                //Detener musica e inicia sonido de seleccion de caracter
-                mpSeleccionarPersonaje = MediaPlayer.create(this, R.raw.super_street_fighter_personaje_seleccionado);
-                mpStreetFighter.stop();
-                mpSeleccionarPersonaje.start();
-
-
-
-                mpSeleccionarPersonaje.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    public void onCompletion(MediaPlayer mp) {
-                        finish(); // al finalizar el audio realiza lo siguiente
-
-                    //Cambia de activity a batalla
-                    Intent intent = new Intent(SelectCharacterActivity.this, BattleActivity.class);
-                    startActivity(intent);
-                    }
-                });
-
                 break;
         }
     }
+
+    //Se activa desde el adaptador al realizar un click en una cardview
+    public  void callbackclick(){
+        //Detener musica e inicia sonido de seleccion de caracter
+    mpSeleccionarPersonaje = MediaPlayer.create(this, R.raw.super_street_fighter_personaje_seleccionado);
+    mpStreetFighter.stop();
+    mpSeleccionarPersonaje.start();
+
+    mpSeleccionarPersonaje.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+        public void onCompletion(MediaPlayer mp) {
+            finish(); // al finalizar el audio realiza lo siguiente
+
+            //Cambia de activity a batalla
+            Intent intent = new Intent(SelectCharacterActivity.this, BattleActivity.class);
+            startActivity(intent);
+        }
+    });
+    }
+
 }
+

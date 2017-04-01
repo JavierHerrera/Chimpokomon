@@ -23,10 +23,8 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
     ImageView imagePlayer1, imagePlayer2;
 
     //Se inicializa objeto motorBatalla y se pasan los ID de los 2 personajes
-    MotorBatalla motorBatalla = new MotorBatalla((int) (Math.random() * 3),(int) (Math.random() * 3));
+    MotorBatalla motorBatalla = new MotorBatalla(SelectCharacterActivity.seleccion1,(int) (Math.random() * 3));
     BDMoves moves = new BDMoves();
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +33,6 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
 
         //Se pasan los datos de los personajes apra cargar sus datos
         cargarElementos();
-
     }
 
     private void cargarElementos(){
@@ -162,6 +159,7 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
         textView_HPplayer1.setText(""+ (int)motorBatalla.player1.hp);
         textView_HPplayer2.setText(""+ (int)motorBatalla.player2.hp);
     }
+
     public void esperar (int segundos) {
         try {
             Thread.sleep (segundos*1000);
