@@ -8,9 +8,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static chimpokomon.com.example.pep.chimpokomon.R.id.imagePlayer1;
 
 public class SelectCharacterActivity extends AppCompatActivity implements View.OnClickListener,MyInterface {
 
@@ -26,10 +29,14 @@ public class SelectCharacterActivity extends AppCompatActivity implements View.O
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager lManager;
 
-    //Test
+    //Variables static para seleccionar el equipo
+    static int flag_Selecction = 1;
     static int seleccion1;
+    static int seleccion2;
+    static int seleccion3;
+    ImageView icon1_Player, icon2_Player,icon3_Player;
+    BDChinpokomones BDChinpo = new BDChinpokomones();
     private CharactersAdapter mMyAdapter;
-
     @Override
     public void foo() {
         callbackclick();
@@ -39,8 +46,14 @@ public class SelectCharacterActivity extends AppCompatActivity implements View.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         //Se pasa el context al objeto mMyAdapter
         this.mMyAdapter = new CharactersAdapter(this);
+
+        //Iniciar Iconos
+        seleccion1 = 99;
+        seleccion2 = 99;
+        seleccion3 = 99;
 
         setContentView(R.layout.activity_select_character);
 
@@ -83,22 +96,49 @@ public class SelectCharacterActivity extends AppCompatActivity implements View.O
     }
 
     //Se activa desde el adaptador al realizar un click en una cardview
-    public  void callbackclick(){
-        //Detener musica e inicia sonido de seleccion de caracter
-    mpSeleccionarPersonaje = MediaPlayer.create(this, R.raw.super_street_fighter_personaje_seleccionado);
-    mpStreetFighter.stop();
-    mpSeleccionarPersonaje.start();
+    public  void callbackclick() {
 
-    mpSeleccionarPersonaje.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-        public void onCompletion(MediaPlayer mp) {
-            finish(); // al finalizar el audio realiza lo siguiente
+        if (seleccion1 < 99 && flag_Selecction == 1) {
 
-            //Cambia de activity a batalla
-            Intent intent = new Intent(SelectCharacterActivity.this, BattleActivity.class);
-            startActivity(intent);
+            //Buscar nombre del chinpokomon y usarlo para buscar y insertar su imagen
+            icon1_Player = (ImageView) findViewById(R.id.icon1_Player);
+            String name = "gridview_" +BDChinpo.c[seleccion1][1].toLowerCase();
+            int resId = getResources().getIdentifier(name, "drawable", getPackageName());
+            icon1_Player.setImageResource(resId);
+            flag_Selecction = flag_Selecction +1;
+
+        } else if (seleccion2 < 99 && flag_Selecction ==2) {
+
+            //Buscar nombre del chinpokomon y usarlo para buscar y insertar su imagen
+            icon2_Player = (ImageView) findViewById(R.id.icon2_Player);
+            String name = "gridview_" +BDChinpo.c[seleccion2][1].toLowerCase();
+            int resId = getResources().getIdentifier(name, "drawable", getPackageName());
+            icon2_Player.setImageResource(resId);
+            flag_Selecction = flag_Selecction +1;
+        } else if (seleccion3 < 99 && flag_Selecction ==3){
+
+            //Buscar nombre del chinpokomon y usarlo para buscar y insertar su imagen
+            icon3_Player = (ImageView) findViewById(R.id.icon3_Player);
+            String name = "gridview_" +BDChinpo.c[seleccion3][1].toLowerCase();
+            int resId = getResources().getIdentifier(name, "drawable", getPackageName());
+            icon3_Player.setImageResource(resId);
+
+            //Unavez Insertado las 3 imagenes se cambia de activity
+            //Detener musica e inicia sonido de seleccion de caracter
+            mpSeleccionarPersonaje = MediaPlayer.create(this, R.raw.super_street_fighter_personaje_seleccionado);
+            mpStreetFighter.stop();
+            mpSeleccionarPersonaje.start();
+
+            mpSeleccionarPersonaje.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                public void onCompletion(MediaPlayer mp) {
+                    finish(); // al finalizar el audio realiza lo siguiente
+
+                    //Cambia de activity a batalla
+                    Intent intent = new Intent(SelectCharacterActivity.this, BattleActivity.class);
+                    startActivity(intent);
+                }
+            });
         }
-    });
     }
-
 }
 

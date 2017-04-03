@@ -47,7 +47,16 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.An
                 public void onClick(View v)
                 {
                     try {
-                       SelectCharacterActivity.seleccion1=getAdapterPosition();
+                        if ( SelectCharacterActivity.flag_Selecction == 1) {
+                            SelectCharacterActivity.seleccion1 =  getAdapterPosition();
+                        }
+                        else if (SelectCharacterActivity.flag_Selecction == 2){
+                            SelectCharacterActivity.seleccion2 = getAdapterPosition();
+                        }
+                        else if (SelectCharacterActivity.flag_Selecction == 3){
+                            SelectCharacterActivity.seleccion3 = getAdapterPosition();
+                        }
+
                         mAdapterCallback.foo();
                     } catch (ClassCastException exception) {
                         // do something
