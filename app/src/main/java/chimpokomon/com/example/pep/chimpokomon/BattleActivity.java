@@ -119,7 +119,7 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
 
             case R.id.button_attack3:
 
-                fullRestore();
+                //fullRestore();
                 break;
 
             case R.id.button_attack4:

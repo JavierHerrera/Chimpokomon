@@ -10,8 +10,7 @@ import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     ImageButton imgButton;
-    public MediaPlayer mpchimpoko;
-
+    public MediaPlayer mp_intro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,8 +19,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
-
-        //Cambia de activity
+        //Boton que cambia de activity
         imgButton = (ImageButton) findViewById(R.id.imgButtonLetsdothis);
         imgButton.setOnClickListener(this);
     }
@@ -32,11 +30,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.imgButtonLetsdothis:
 
                 //Inicia audio inicio
-                mpchimpoko= MediaPlayer.create(this, R.raw.chinpokomon_roar);
-                mpchimpoko.start();
+                mp_intro = MediaPlayer.create(this, R.raw.chinpokomon_roar);
+                mp_intro.start();
 
                 //Verifica que se termine el audio para realizar alguna accion
-                mpchimpoko.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                mp_intro.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     public void onCompletion(MediaPlayer mp) {
                         finish(); // al finalizar el audio realiza lo siguiente
 
