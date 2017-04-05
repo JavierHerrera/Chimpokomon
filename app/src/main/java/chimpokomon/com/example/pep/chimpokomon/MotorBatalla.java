@@ -1,7 +1,5 @@
 package chimpokomon.com.example.pep.chimpokomon;
 
-import android.widget.TextView;
-
 public class MotorBatalla {
 
     //El modificador se utiliza para bd_ataques super efectivos
@@ -19,16 +17,20 @@ public class MotorBatalla {
 
     //Cargar los 2 objetos chinpokomones
     int flag_quienAtacayDefiende;
-    Personaje player1;
-    Personaje player2;
-    Personaje atacante;
-    Personaje defensor;
+    Personaje player1_Personaje1, player1_Personaje2, player1_Personaje3;
+    Personaje player2_Personaje1, player2_Personaje2, player2_Personaje3;
+    Personaje atacante, defensor;
+    Personaje player1_Actual,player2_Actual;
 
 
-    public  MotorBatalla( int id, int id2){
+    public  MotorBatalla( int id, int id2, int id3, int id4, int id5, int id6){
 
-        player1 = new Personaje(id);
-        player2 = new Personaje(id2);
+        player1_Personaje1 = new Personaje(id);
+        player1_Personaje2 = new Personaje(id2);
+        player1_Personaje3 = new Personaje(id3);
+        player2_Personaje1 = new Personaje(id4);
+        player2_Personaje2 = new Personaje(id5);
+        player2_Personaje3 = new Personaje(id6);
     }
 
     public void combate(String ataque, int a) {
@@ -44,12 +46,12 @@ public class MotorBatalla {
 
         //Seleccionar quien es el que ataca y defiende
         if (a==1){
-            atacante = player1;
-            defensor = player2;
+            atacante = player1_Actual;
+            defensor = player2_Actual;
         }
         else {
-            atacante = player2;
-            defensor = player1;
+            atacante = player2_Actual;
+            defensor = player1_Actual;
         }
         evasion(atacante);
     }
@@ -120,12 +122,12 @@ public class MotorBatalla {
 
         //Se regresan los datos
         if (flag_quienAtacayDefiende==1){
-            player1 = atacante;
-            player2 = defensor;
+            player1_Actual = atacante;
+            player2_Actual = defensor;
         }
         else {
-            player2 = atacante;
-            player1 = defensor;
+            player2_Actual = atacante;
+            player1_Actual = defensor;
         }
     }
 }

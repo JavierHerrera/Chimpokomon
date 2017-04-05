@@ -7,21 +7,25 @@ public class Personaje {
     public String tipo;
     public double damage;
     public double hp;
+    public double hpMax;
     public String move1;
     public String move2;
+    public String move3;
+    public String move4;
 
     public Personaje(int ID){
 
-        ID = ID;
-        BDChinpokomones test = new BDChinpokomones();
+        BDChinpokomones BDChinpo = new BDChinpokomones();
 
-        nombre = test.c[ID][1];
-        tipo = test.c[ID][2];
-        damage =  Double.parseDouble(test.c[ID][3]);
-        hp = Double.parseDouble(test.c[ID][4]);
-        move1 = test.c[ID][5];
-        move2 = test.c[ID][6];
-
+        nombre = BDChinpo.c[ID][1];
+        tipo = BDChinpo.c[ID][2];
+        damage =  Double.parseDouble(BDChinpo.c[ID][3]);
+        hp = Double.parseDouble(BDChinpo.c[ID][4]);
+        move1 = BDChinpo.c[ID][5];
+        move2 = BDChinpo.c[ID][6];
+        move3 = BDChinpo.c[ID][7];
+        move4 = BDChinpo.c[ID][8];
+        hpMax = hp;
 
     }
 }

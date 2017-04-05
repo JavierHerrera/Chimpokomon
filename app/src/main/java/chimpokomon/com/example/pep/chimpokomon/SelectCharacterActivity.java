@@ -1,9 +1,7 @@
 package chimpokomon.com.example.pep.chimpokomon;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.media.MediaPlayer;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,16 +13,13 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.List;
 
-import static chimpokomon.com.example.pep.chimpokomon.R.id.imagePlayer1;
-
 public class SelectCharacterActivity extends AppCompatActivity implements View.OnClickListener,MyInterface {
 
     //Boton de prueba para cambiar a layout de batalla
     Button test_battle_button;
 
     // Variable para la musica
-    private MediaPlayer mpStreetFighter;
-    private  MediaPlayer mpSeleccionarPersonaje;
+    private MediaPlayer mpStreetFighter, mpFinalizarSeleccion, mpSeleccionarPersonaje;
 
     // Declarar instancias globales de RecyclerView
     private RecyclerView recycler;
@@ -101,11 +96,15 @@ public class SelectCharacterActivity extends AppCompatActivity implements View.O
 
         if (seleccion1 < 99 && flag_Selecction == 1) {
 
+            mpSeleccionarPersonaje = MediaPlayer.create(SelectCharacterActivity.this, R.raw.super_street_fighter_cambio_personaje);
+            mpSeleccionarPersonaje.start();
             cargar_Icono(icon1_Player,seleccion1,"icon1_Player");
             flag_Selecction = flag_Selecction +1;
 
         } else if (seleccion2 < 99 && flag_Selecction ==2) {
 
+            mpSeleccionarPersonaje = MediaPlayer.create(this, R.raw.super_street_fighter_cambio_personaje);
+            mpSeleccionarPersonaje.start();
             cargar_Icono(icon2_Player,seleccion2,"icon2_Player");
             flag_Selecction = flag_Selecction +1;
 
@@ -115,11 +114,11 @@ public class SelectCharacterActivity extends AppCompatActivity implements View.O
 
             //Unavez Insertado las 3 imagenes se cambia de activity
             //Detener musica e inicia sonido de seleccion de caracter
-            mpSeleccionarPersonaje = MediaPlayer.create(this, R.raw.super_street_fighter_personaje_seleccionado);
+            mpFinalizarSeleccion = MediaPlayer.create(this, R.raw.super_street_fighter_personaje_seleccionado);
             mpStreetFighter.stop();
-            mpSeleccionarPersonaje.start();
+            mpFinalizarSeleccion.start();
 
-            mpSeleccionarPersonaje.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            mpFinalizarSeleccion.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 public void onCompletion(MediaPlayer mp) {
                     finish(); // al finalizar el audio realiza lo siguiente
 
