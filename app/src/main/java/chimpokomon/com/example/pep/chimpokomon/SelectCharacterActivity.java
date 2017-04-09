@@ -13,10 +13,7 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectCharacterActivity extends AppCompatActivity implements View.OnClickListener,MyInterface {
-
-    //Boton de prueba para cambiar a layout de batalla
-    Button test_battle_button;
+public class SelectCharacterActivity extends AppCompatActivity implements MyInterface {
 
     // Variable para la musica
     private MediaPlayer mpStreetFighter, mpFinalizarSeleccion, mpSeleccionarPersonaje;
@@ -42,6 +39,7 @@ public class SelectCharacterActivity extends AppCompatActivity implements View.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_select_character);
 
         //Se pasa el context al objeto mMyAdapter
         this.mMyAdapter = new CharactersAdapter(this);
@@ -50,12 +48,6 @@ public class SelectCharacterActivity extends AppCompatActivity implements View.O
         seleccion1 = 99;
         seleccion2 = 99;
         seleccion3 = 99;
-
-        setContentView(R.layout.activity_select_character);
-
-        //Inicializar botton dep rueba
-        test_battle_button = (Button) findViewById(R.id.test_battle_button);
-        test_battle_button.setOnClickListener(this);
 
         //Inicia audio de streetfighter
         mpStreetFighter = MediaPlayer.create(SelectCharacterActivity.this, R.raw.streetfightersong);
@@ -81,17 +73,7 @@ public class SelectCharacterActivity extends AppCompatActivity implements View.O
         recycler.setAdapter(adapter);
     }
 
-    //Sin uso por el momento
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.test_battle_button:
-
-                break;
-        }
-    }
-
-    //Se activa desde el adaptador al realizar un click en una cardview
+    //Se activa desde el adaptador al realizar un click en una cardview.Carga las imagenes pequeñas
     public  void callbackclick() {
 
         if (seleccion1 < 99 && flag_Selecction == 1) {

@@ -91,7 +91,7 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.An
     public void onBindViewHolder(AnimeViewHolder viewHolder, int position) {
         viewHolder.imagen.setImageResource(items.get(position).getImagen());
         viewHolder.nombre.setText(items.get(position).getNombre());
-        viewHolder.visitas.setText("Visitas:"+String.valueOf(items.get(position).getVisitas()));
+        viewHolder.visitas.setText("Attack "+String.valueOf(items.get(position).getVisitas()));
         viewHolder.tipo_elemento.setImageResource(items.get(position).getType());
 
     }

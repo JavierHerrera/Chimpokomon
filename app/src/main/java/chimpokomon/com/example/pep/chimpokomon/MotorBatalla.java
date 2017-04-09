@@ -53,7 +53,9 @@ public class MotorBatalla {
             atacante = player2_Actual;
             defensor = player1_Actual;
         }
-        evasion(atacante);
+
+        if (defensor.hp >0 && atacante.hp >0){
+            evasion(atacante);}
     }
 
     private void evasion(Personaje atacante){
@@ -115,8 +117,12 @@ public class MotorBatalla {
 
     private void applyATK(){
 
-        //Se resta el hp del daño
+        //Se resta el hp del daño y se evita que sea negativo
         defensor.hp = defensor.hp - move_damage * modificador;
+        if ( defensor.hp < 0){
+            defensor.hp = 0;
+        }
+
         damage_done = (int) (move_damage * modificador);
         leyenda = modificador_leyenda;
 

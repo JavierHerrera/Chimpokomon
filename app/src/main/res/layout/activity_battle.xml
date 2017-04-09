@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#EBEBEB"
+    android:background="#F4F4F4"
     tools:context="chimpokomon.com.example.pep.chimpokomon.BattleActivity"
     >
     <TextView
@@ -26,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
+        android:layout_alignParentEnd="false"
         >
 
         <ImageView
@@ -74,8 +74,7 @@
         android:layout_height="match_parent"
         android:id="@+id/button_attack1"
         android:text="1111"
-        android:layout_weight=".5"
-            android:textAllCaps="false" />
+        android:layout_weight=".5" />
 
         <Button
 
@@ -182,8 +181,9 @@
         android:layout_height="wrap_content"
         android:background="@drawable/border_info"
         android:padding="7dp"
-        android:layout_marginTop="40dp"
-        android:layout_toLeftOf="@+id/layoutImgHPCPU"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/layoutImgHPCPU"
+
         >
 
         <TextView
@@ -248,6 +248,7 @@
         android:layout_above="@+id/layoutHPPlayer"
         android:layout_alignParentEnd="true">
 
+
         <ImageView
             android:id="@+id/img_Seleccion1"
             android:layout_width="50dp"
@@ -274,21 +275,53 @@
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:id="@+id/button_fullRestore"
         android:text="Restore"
         android:layout_weight=".5"
         android:layout_below="@id/layoutHPCPU"
+        android:layout_alignParentEnd="true"
+
         />
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:id="@+id/button_attackCPU"
         android:text="CPU"
         android:layout_weight=".5"
-        android:layout_toEndOf="@id/button_fullRestore"
+        android:layout_toStartOf="@id/button_fullRestore"
         android:layout_below="@id/layoutHPCPU"
+        android:allowUndo="false"
+        android:focusableInTouchMode="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/texto_informacion_atacarP2"
+        android:text="1005"
+        android:textColor="#ed2809"
+        android:textStyle="bold"
+        android:textSize="8pt"
+        android:visibility="invisible"
+        android:layout_alignBottom="@id/layoutHPCPU"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentStart="true"
+
         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/texto_informacion_atacarP1"
+        android:text="1005"
+        android:textColor="#ed2809"
+        android:textStyle="bold"
+        android:textSize="8pt"
+        android:visibility="invisible"
+        android:layout_alignTop="@id/layoutHPPlayer"
+        android:layout_alignParentStart="true"
+        />
+
 
 </RelativeLayout>

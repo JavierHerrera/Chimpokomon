@@ -1,4 +1,5 @@
 package chimpokomon.com.example.pep.chimpokomon;
+import chimpokomon.com.example.pep.chimpokomon.BattleActivity;
 
 public class BDChinpokomones {
 
