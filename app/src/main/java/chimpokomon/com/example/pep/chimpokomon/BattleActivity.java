@@ -211,9 +211,7 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
                 break;
 
             case R.id.button_attackCPU:
-
-                animaciones = new Animaciones(imagePlayer1, imagePlayer2, context);
-                animaciones.animation_texto_atacar(texto_informacion_atacar2, "Miss");
+                atacar_CPU();
                 break;
         }
     }
@@ -224,13 +222,11 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
         if (motorBatalla.player1_Actual.hp > 0 && motorBatalla.player2_Actual.hp > 0) {
             //Inicializa el combate, se pasa el nombre del ataque
             motorBatalla.combate(move, 1);
-
             actualizarProgresBarHP((int) motorBatalla.player1_Actual.hp, (int) motorBatalla.player2_Actual.hp);
-            textViewBattle.setText(motorBatalla.leyenda + " Daño:" + motorBatalla.damage_done);
+            textViewBattle.setText(motorBatalla.leyenda_de_textView + " Daño:" + motorBatalla.damage_done);
             habilitar_deshabilitar_botones(false);
             hiloVelocidadPlayer1();
-            animaciones.animation_ATK_player1();
-            animaciones.animation_texto_atacar(texto_informacion_atacar2, String.valueOf(motorBatalla.damage_done));
+            animaciones.animation_ATK_player1(texto_informacion_atacar2, motorBatalla.flag_ataque,Integer.toString(motorBatalla.damage_done));
         }
     }
 
@@ -248,9 +244,8 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
 
         motorBatalla.combate(ataqueCPU, 2);
         actualizarProgresBarHP((int) motorBatalla.player1_Actual.hp, (int) motorBatalla.player2_Actual.hp);
-        textViewBattle.setText(motorBatalla.leyenda + " Daño:" + motorBatalla.damage_done);
-        animaciones.animation_ATK_player2();
-        animaciones.animation_texto_atacar(texto_informacion_atacar1, String.valueOf(motorBatalla.damage_done));
+        textViewBattle.setText(motorBatalla.leyenda_de_textView + " Daño:" + motorBatalla.damage_done);
+        animaciones.animation_ATK_player2(texto_informacion_atacar1, motorBatalla.flag_ataque,Integer.toString(motorBatalla.damage_done));
     }
 
     //FullRestore es de prueba, actualizar ProgersBarHP cambia la barra de HP y el contador de abajo

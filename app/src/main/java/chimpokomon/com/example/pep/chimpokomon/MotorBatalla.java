@@ -4,13 +4,14 @@ public class MotorBatalla {
 
     //El modificador se utiliza para bd_ataques super efectivos
     private double modificador = 1;
-    private String modificador_leyenda;
+    public String leyenda_de_textView;
 
     //Variables del ataque
     private int move_damage;
     private String move_used;
-    public String leyenda;
     public int damage_done;
+    public int flag_ataque; //0 miss,1 nomal, 2 super E, 3 not very E
+    public int flag_ataque_critico; //  0 no critico, 1 citico
 
     //Cargar datos
     BDMoves BDMoves = new BDMoves();
@@ -39,10 +40,13 @@ public class MotorBatalla {
 
         //Inicializa modificador a 1 por default
         modificador = 1;
-        modificador_leyenda = "";
+        leyenda_de_textView = "";
         move_damage = 1;
         move_used = ataque;
         damage_done = 0;
+        flag_ataque = 1;
+        flag_ataque_critico = 0;
+
 
         //Seleccionar quien es el que ataca y defiende
         if (a==1){
@@ -60,12 +64,11 @@ public class MotorBatalla {
 
     private void evasion(Personaje atacante){
         if ( 1 == (int) (Math.random() * 30) ){
-            modificador_leyenda= atacante.nombre + " used " + move_used+ ". Attack missed!";
-            leyenda= modificador_leyenda;
+            leyenda_de_textView = atacante.nombre + " used " + move_used+ ". Attack missed!";
+            flag_ataque = 0;
         }
         else {
             super_efective(move_used);
-            leyenda = modificador_leyenda;
         }
     }
 
@@ -88,29 +91,33 @@ public class MotorBatalla {
                 (move_type == "water" && defensor.tipo == "fire") ||
                 (move_type == "fire" && defensor.tipo == "grass")){
             modificador = modificador * 2;
-            modificador_leyenda = ", it's Super Effective! ";
+            leyenda_de_textView = ", it's Super Effective! ";
+            flag_ataque = 2;
         }
         else if ((move_type == "grass" && defensor.tipo == "fire") ||
                 (move_type == "water" && defensor.tipo == "grass") ||
                 (move_type == "fire" && defensor.tipo == "water")){
             modificador = modificador * 0.5;
-            modificador_leyenda = ", it's Not Very Effective!";
+            leyenda_de_textView = ", it's Not Very Effective!";
+            flag_ataque = 3;
         }
         else {
             modificador = 1;
-            modificador_leyenda = "";
+            leyenda_de_textView = "";
+            flag_ataque = 1;
         }
         critical();
     }
 
     private void critical(){
-
-        if ( 1 == (int) (Math.random() * 15) ){
+//
+        if ( 1 == (int) (Math.random() * 15 )){
             move_damage = (int) (move_damage * 1.5);
-            modificador_leyenda = atacante.nombre + " used " + move_used + modificador_leyenda + " Citical hit!";
+            leyenda_de_textView = atacante.nombre + " used " + move_used + leyenda_de_textView + " Citical hit!";
+            flag_ataque = flag_ataque + 10;
         }
         else{
-            modificador_leyenda = atacante.nombre + " used " + move_used + modificador_leyenda;
+            leyenda_de_textView = atacante.nombre + " used " + move_used + leyenda_de_textView;
         }
         applyATK();
     }
@@ -124,7 +131,6 @@ public class MotorBatalla {
         }
 
         damage_done = (int) (move_damage * modificador);
-        leyenda = modificador_leyenda;
 
         //Se regresan los datos
         if (flag_quienAtacayDefiende==1){
