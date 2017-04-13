@@ -106,4 +106,11 @@ public class Animaciones {
         animation = AnimationUtils.loadAnimation(context,R.anim.aim_critical);
         texto.startAnimation(animation);
     }
+
+    public void animation_icono_morir(ImageView m){
+
+        Animation animation;
+        animation = AnimationUtils.loadAnimation(context,R.anim.aim_transparencia_icono_morir);
+        m.startAnimation(animation);
+    }
 }

@@ -21,15 +21,15 @@ public class BDMoves {
         bd_ataques[2][2] = "45";
 
         bd_ataques[3][0] = "Quick Attack";
-        bd_ataques[3][1] = "Normal";
+        bd_ataques[3][1] = "normal";
         bd_ataques[3][2] = "40";
 
         bd_ataques[4][0] = "Scratch";
-        bd_ataques[4][1] = "Normal";
+        bd_ataques[4][1] = "normal";
         bd_ataques[4][2] = "40";
 
         bd_ataques[5][0] = "Tackle";
-        bd_ataques[5][1] = "Normal";
+        bd_ataques[5][1] = "normal";
         bd_ataques[5][2] = "40";
 
         bd_ataques[6][0] = "Bite";

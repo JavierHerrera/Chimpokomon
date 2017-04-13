@@ -1,28 +1,36 @@
 package chimpokomon.com.example.pep.chimpokomon;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.annotation.StyleRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import static chimpokomon.com.example.pep.chimpokomon.R.attr.background;
+
 public class BattleActivity extends AppCompatActivity implements View.OnClickListener {
 
     public TextView textViewBattle, texto_informacion_atacar2,texto_informacion_atacar1;
-    ProgressBar pgrHPPlayer2, pgrHPPlayer1;
+    ProgressBar pgrHPPlayer2, pgrHPPlayer1, progressBarTestAtkSpeedCPU, progressBarTestAtkSpeedPlayer1;
     MediaPlayer mpMusicBattle;
     Button btnAtaque1, btnAtaque2, btnAtaque3, btnAtaque4;
-    int flag_CPU_Atacando;
+    //Variables para la velocidad de ataque
+    int progresStatusCPU, progresStatusPlayer1, Token_CPU_Atacando, Token_Player1_Atacando;
+
+
     //BOTONES DE PRUEBA
     Button btn_full_Restore, btn_cpu_Attak;
     Context context;
+    int chinpokomon_player2;
 
     //Textos que se utilizan para cagar los display
     TextView textView_HPplayer1, textView_HPplayer2, textView_HPmax_Player1;
@@ -41,6 +49,7 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
 
     BDMoves moves = new BDMoves();
     Animaciones animaciones;
+
 
     // Se instancias para los hilos de atacar por tiempo
     final Handler mHandler = new Handler();
@@ -69,9 +78,14 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
         texto_informacion_atacar1 = (TextView) findViewById(R.id.texto_informacion_atacarP1);
         texto_informacion_atacar2 = (TextView) findViewById(R.id.texto_informacion_atacarP2);
 
-        //Se cambia el flag de CPU ataque y se inicia el metodo atacar_CPU
-        flag_CPU_Atacando = 1;
-        hiloVelocidadCPU();
+        //Se inicia
+        Token_CPU_Atacando = 1;
+        Token_Player1_Atacando = 1;
+        habilitar_deshabilitar_botones(false);
+        attack_speed_CPU();
+        attack_speed_player1();
+        chinpokomon_player2 = 1;
+
     }
 
     private void cargar_Elementos_Player1() {
@@ -96,6 +110,16 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
         btnAtaque2.setText(motorBatalla.player1_Actual.move2);
         btnAtaque3.setText(motorBatalla.player1_Actual.move3);
         btnAtaque4.setText(motorBatalla.player1_Actual.move4);
+        cargarTipoBoton(btnAtaque1);
+        cargarTipoBoton(btnAtaque2);
+        cargarTipoBoton(btnAtaque3);
+        cargarTipoBoton(btnAtaque4);
+
+        //btnAtaque1.setTextAppearance(R.style.button_bug);
+
+
+
+
 
         //TextView de HP
         textView_HPplayer1 = (TextView) findViewById(R.id.textView_HPcurrent_Player1);
@@ -105,6 +129,7 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
 
         //Se crea ProgresBar y texto de batalla TEST
         pgrHPPlayer1 = (ProgressBar) findViewById(R.id.progressBarHPPlayer1);
+        progressBarTestAtkSpeedPlayer1 = (ProgressBar) findViewById(R.id.progressBarSpeedPlayer1);
         //Cargar barras hp
         pgrHPPlayer1.setMax((int) motorBatalla.player1_Actual.hpMax);
         pgrHPPlayer1.setProgress((int) motorBatalla.player1_Actual.hp);
@@ -119,8 +144,10 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
         textView_HPplayer2 = (TextView) findViewById(R.id.textViewHPViewChinpoCPU);
         textView_HPplayer2.setText("" + (int) motorBatalla.player2_Actual.hp);
 
-        //Se crea ProgresBar y texto de batalla
+        //Se crea ProgresBar de HP, speed y texto de batalla
         pgrHPPlayer2 = (ProgressBar) findViewById(R.id.progressBarHPPlayer2);
+        progressBarTestAtkSpeedCPU = (ProgressBar) findViewById(R.id.progressBarSpeedPlayer2);
+
         //Cargar barras hp
         pgrHPPlayer2.setMax((int) motorBatalla.player2_Actual.hpMax);
         pgrHPPlayer2.setProgress((int) motorBatalla.player2_Actual.hp);
@@ -151,6 +178,17 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
         icon_Seleccion2.setOnClickListener(this);
         icon_Seleccion3.setOnClickListener(this);
 
+        //Hacer imagen transparente si muere personaje
+        if(motorBatalla.player1_Personaje1.hp ==0){
+            animaciones.animation_icono_morir(icon_Seleccion1);
+        }
+        if(motorBatalla.player1_Personaje2.hp ==0){
+            animaciones.animation_icono_morir(icon_Seleccion2);
+        }
+        if(motorBatalla.player1_Personaje3.hp ==0){
+            animaciones.animation_icono_morir(icon_Seleccion3);
+        }
+
         String name1 = "gridview_" + motorBatalla.player1_Personaje1.nombre.toLowerCase();
         int resId1 = getResources().getIdentifier(name1, "drawable", getPackageName());
         icon_Seleccion1.setImageResource(resId1);
@@ -162,6 +200,19 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
         String name3 = "gridview_" + motorBatalla.player1_Personaje3.nombre.toLowerCase();
         int resId3 = getResources().getIdentifier(name3, "drawable", getPackageName());
         icon_Seleccion3.setImageResource(resId3);
+
+    }
+
+    public void cargarTipoBoton(Button button){
+        String move_type;
+        int i=0;
+        while ( button.getText() != moves.bd_ataques[i][0]){
+            i = i + 1;
+        }
+        move_type = moves.bd_ataques[i][1];
+        String name = "button_style_" + move_type;
+        int resId = getResources().getIdentifier(name, "drawable", getPackageName());
+        button.setBackgroundResource( resId );
 
     }
 
@@ -190,42 +241,48 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
 
             //Los siguientes 3 casos, cambian al chinpokomon actual por el seleccionado en la imagen
             case R.id.img_Seleccion1:
-                cambiar_personaje_player1(motorBatalla.player1_Personaje1);
+                if (motorBatalla.player1_Personaje1.hp >0) {
+                    cambiar_personaje_player1(motorBatalla.player1_Personaje1);
+                }
                 break;
 
             case R.id.img_Seleccion2:
-                cambiar_personaje_player1(motorBatalla.player1_Personaje2);
+                if (motorBatalla.player1_Personaje2.hp >0) {
+                    cambiar_personaje_player1(motorBatalla.player1_Personaje2);
+                };
                 break;
 
             case R.id.img_Seleccion3:
-                cambiar_personaje_player1(motorBatalla.player1_Personaje3);
+                if (motorBatalla.player1_Personaje3.hp >0) {
+                    cambiar_personaje_player1(motorBatalla.player1_Personaje3);
+                }
                 break;
 
             //BOTONES DE TEST
             case R.id.button_fullRestore:
-
-                Animation animFadein;
-                animFadein = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.girar);
-                imagePlayer2.startAnimation(animFadein);
+                Token_CPU_Atacando +=1;
+                //attack_speed_CPU();
 
                 break;
 
             case R.id.button_attackCPU:
-                atacar_CPU();
+
+
                 break;
         }
     }
+
 
     public void atacar_player1(String move) {
         animaciones = new Animaciones(imagePlayer1, imagePlayer2, context);
 
         if (motorBatalla.player1_Actual.hp > 0 && motorBatalla.player2_Actual.hp > 0) {
-            //Inicializa el combate, se pasa el nombre del ataque
+            //Inicializa el ataque solo si los 2 personajes tiene hp, se pasa el nombre del ataque
             motorBatalla.combate(move, 1);
-            actualizarProgresBarHP((int) motorBatalla.player1_Actual.hp, (int) motorBatalla.player2_Actual.hp);
             textViewBattle.setText(motorBatalla.leyenda_de_textView + " Daño:" + motorBatalla.damage_done);
+            actualizarProgresBarHP((int) motorBatalla.player1_Actual.hp, (int) motorBatalla.player2_Actual.hp);
             habilitar_deshabilitar_botones(false);
-            hiloVelocidadPlayer1();
+            attack_speed_player1();
             animaciones.animation_ATK_player1(texto_informacion_atacar2, motorBatalla.flag_ataque,Integer.toString(motorBatalla.damage_done));
         }
     }
@@ -243,21 +300,9 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         motorBatalla.combate(ataqueCPU, 2);
-        actualizarProgresBarHP((int) motorBatalla.player1_Actual.hp, (int) motorBatalla.player2_Actual.hp);
         textViewBattle.setText(motorBatalla.leyenda_de_textView + " Daño:" + motorBatalla.damage_done);
+        actualizarProgresBarHP((int) motorBatalla.player1_Actual.hp, (int) motorBatalla.player2_Actual.hp);
         animaciones.animation_ATK_player2(texto_informacion_atacar1, motorBatalla.flag_ataque,Integer.toString(motorBatalla.damage_done));
-    }
-
-    //FullRestore es de prueba, actualizar ProgersBarHP cambia la barra de HP y el contador de abajo
-    public void fullRestore() {
-        pgrHPPlayer1.setProgress(pgrHPPlayer1.getMax());
-        pgrHPPlayer2.setProgress(pgrHPPlayer2.getMax());
-
-        motorBatalla.player1_Actual.hp = pgrHPPlayer1.getMax();
-        motorBatalla.player2_Actual.hp = pgrHPPlayer2.getMax();
-
-        textView_HPplayer1.setText("" + (int) motorBatalla.player1_Actual.hp);
-        textView_HPplayer2.setText("" + (int) motorBatalla.player2_Actual.hp);
     }
 
     //Actualizar ProgersBarHP cambia la barra de HP y el contador de abajo
@@ -269,7 +314,9 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
         textView_HPplayer2.setText("" + (int) motorBatalla.player2_Actual.hp);
 
         //Valida si la batalla finalizo y/o realiza el cambio de pesonaje de CPU
-        finalizar_batalla();
+        finalizar_batalla(); //NO SIRVE!!
+
+
     }
 
     //Metodo para cambiar de personaje de player1 y activa el ataque de CPU cambiando su flag y activando su metodo atacar:CPU
@@ -278,11 +325,10 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
         cargar_Elementos_Player1();
         cargar_Imagenes();
         habilitar_deshabilitar_botones(false);
-        hiloVelocidadPlayer1();
+        attack_speed_player1();
 
-        if (flag_CPU_Atacando == 0) {
-            flag_CPU_Atacando = 1;
-            hiloVelocidadCPU();
+        if (progresStatusCPU == 0) {
+            attack_speed_CPU();
         }
     }
 
@@ -299,98 +345,124 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
 
         cargar_Elementos_Player2();
         cargar_Imagenes();
-        flag_CPU_Atacando = 1;
 
-        hiloVelocidadCPU();
+        attack_speed_CPU();
+
 
     }
 
     public void finalizar_batalla() {
 
-        if (motorBatalla.player1_Personaje1.hp + motorBatalla.player1_Personaje2.hp + motorBatalla.player1_Personaje3.hp == 0) {
+        //Hacer imagen transparente si muere personaje
+        if(motorBatalla.player1_Personaje1.hp ==0){
+            animaciones.animation_icono_morir(icon_Seleccion1);
+        }
+        if(motorBatalla.player1_Personaje2.hp ==0){
+            animaciones.animation_icono_morir(icon_Seleccion2);
+        }
+        if(motorBatalla.player1_Personaje3.hp ==0){
+            animaciones.animation_icono_morir(icon_Seleccion3);
+        }
+
+
+        //Si no quedan personajes visos, manda mensaje final o cambia de personaje
+        if ((motorBatalla.player1_Personaje1.hp + motorBatalla.player1_Personaje2.hp + motorBatalla.player1_Personaje3.hp) == 0) {
             textViewBattle.setText("PERDISTE");
-        } else if (motorBatalla.player2_Personaje1.hp + motorBatalla.player2_Personaje2.hp + motorBatalla.player2_Personaje3.hp == 0) {
+        } else if ((motorBatalla.player2_Personaje1.hp + motorBatalla.player2_Personaje2.hp + motorBatalla.player2_Personaje3.hp) == 0) {
             textViewBattle.setText("GANASTE");
         } else if (motorBatalla.player2_Actual.hp == 0) {
             cambiar_personaje_CPU();
         }
+
     }
 
     public void habilitar_deshabilitar_botones(boolean a) {
-
         btnAtaque1.setEnabled(a);
         btnAtaque2.setEnabled(a);
         btnAtaque3.setEnabled(a);
         btnAtaque4.setEnabled(a);
-
     }
 
-    ////Este Hilo se utiliza con un temporizador para el ataque de CPU
-    protected void hiloVelocidadCPU() {
-        Thread t = new Thread() {
-            Personaje p;
 
+    //HILOS que utilizan la velocidad de ataque para habilitar los ataques
+    public void attack_speed_CPU(){
+        Token_CPU_Atacando +=1;
+        progresStatusCPU = 0;
+        final int token = Token_CPU_Atacando;
+        new Thread(new Runnable() {
+            @Override
             public void run() {
-                try {
-                    p = motorBatalla.player2_Actual;
-                    flag_CPU_Atacando = 1;
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                while ( progresStatusCPU < 100 && token == Token_CPU_Atacando && motorBatalla.player1_Actual.hp > 0 && motorBatalla.player2_Actual.hp > 0){
+                    progresStatusCPU +=1;
+
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressBarTestAtkSpeedCPU.setProgress(progresStatusCPU);
+                            if (progresStatusCPU == 100 ){
+                                atacar_CPU();
+                                progresStatusCPU = 0;
+                                if ( motorBatalla.player1_Actual.hp > 0){
+                                    attack_speed_CPU();
+                                }
+                            }
+                        }
+                    });
+                    try{
+                        Thread.sleep(50);
+                    }
+                    catch (InterruptedException e){e.printStackTrace();}
                 }
-                //Si CPU no cmabio de personaje
-                if (p == motorBatalla.player2_Actual) {
-                    mHandler.post(ejecutarAtaqueCPU);
-                }
+                progresStatusCPU = 0;
             }
-        };
-        t.start();
+        }).start();
+
     }
 
-    final Runnable ejecutarAtaqueCPU = new Runnable() {
-        @Override
-        public void run() {
-
-            //Si el hp del personaje actual de player 1 es > 0, atacar de nuevo
-            if (motorBatalla.player2_Actual.hp > 0 && motorBatalla.player1_Actual.hp > 0) {
-                atacar_CPU();
-                hiloVelocidadCPU();
-            } else {
-                flag_CPU_Atacando = 0;
-            }
-        }
-    };
-
-    //Metodo que determina la frecuencia con que atacara de nuevo el jugador
-    protected void hiloVelocidadPlayer1() {
-        Thread t2 = new Thread() {
+    public void attack_speed_player1(){
+        Token_Player1_Atacando +=1;
+        progresStatusPlayer1 = 0;
+        final int token2 = Token_Player1_Atacando;
+        new Thread(new Runnable() {
+            @Override
             public void run() {
+                while ( progresStatusPlayer1 < 100 && token2 == Token_Player1_Atacando && motorBatalla.player1_Actual.hp > 0 && motorBatalla.player2_Actual.hp > 0){
+                    progresStatusPlayer1 +=1;
 
-                try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressBarTestAtkSpeedPlayer1.setProgress(progresStatusPlayer1);
+                            if (progresStatusPlayer1 == 100 ){
+                                habilitar_deshabilitar_botones(true);
+                            }
+                        }
+                    });
+                    try{
+                        Thread.sleep(50);
+                    }
+                    catch (InterruptedException e){e.printStackTrace();}
                 }
-                mHandler.post(habilitarAtaquePlaye1);
             }
-        };
-        t2.start();
+        }).start();
 
     }
 
-    final Runnable habilitarAtaquePlaye1 = new Runnable() {
-        @Override
-        public void run() {
-            //Si el hp del personaje actual de player 1 es > 0, atacar de nuevo
-            if (motorBatalla.player2_Actual.hp > 0 && motorBatalla.player1_Actual.hp > 0) {
-                habilitar_deshabilitar_botones(true);
-            } else {
-                flag_CPU_Atacando = 0;
-            }
 
-        }
-    };
 
+
+
+    //FullRestore es de prueba, actualizar ProgersBarHP cambia la barra de HP y el contador de abajo
+    public void fullRestore() {
+        pgrHPPlayer1.setProgress(pgrHPPlayer1.getMax());
+        pgrHPPlayer2.setProgress(pgrHPPlayer2.getMax());
+
+        motorBatalla.player1_Actual.hp = pgrHPPlayer1.getMax();
+        motorBatalla.player2_Actual.hp = pgrHPPlayer2.getMax();
+
+        textView_HPplayer1.setText("" + (int) motorBatalla.player1_Actual.hp);
+        textView_HPplayer2.setText("" + (int) motorBatalla.player2_Actual.hp);
+    }
 }
 
 

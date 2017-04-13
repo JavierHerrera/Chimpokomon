@@ -12,4 +12,92 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+
+    <style name="button_normal" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">#E0E0E0</item>
+        <item name="colorButtonNormal">#E0E0E0</item>
+    </style>
+
+    <style name="button_fire" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">#FFCC80</item>
+        <item name="colorButtonNormal">#FFCC80</item>
+    </style>
+
+    <style name="button_water" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">#64B5F6</item>
+        <item name="colorButtonNormal">#64B5F6</item>
+    </style>
+
+    <style name="button_electric" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">#FFF59D</item>
+        <item name="colorButtonNormal">#FFF59D</item>
+    </style>
+
+    <style name="button_grass" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">#A5D6A7</item>
+        <item name="colorButtonNormal">#A5D6A7</item>
+    </style>
+
+    <style name="button_ice" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">#B2EBF2</item>
+        <item name="colorButtonNormal">#B2EBF2</item>
+    </style>
+
+    <style name="button_fighting" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">#EF9A9A</item>
+        <item name="colorButtonNormal">#EF9A9A</item>
+    </style>
+
+    <style name="button_posion" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">#CE93D8</item>
+        <item name="colorButtonNormal">#CE93D8</item>
+    </style>
+
+    <style name="button_ground" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">#FFE9D869</item>
+        <item name="colorButtonNormal">#FFE9D869</item>
+    </style>
+
+    <style name="button_flying" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">#FFA598ED</item>
+        <item name="colorButtonNormal">#FFA598ED</item>
+    </style>
+
+    <style name="button_psychic" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">#F48FB1</item>
+        <item name="colorButtonNormal">#F48FB1</item>
+    </style>
+
+    <style name="button_bug" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">#E6EE9C</item>
+        <item name="colorButtonNormal">#E6EE9C</item>
+    </style>
+
+    <style name="button_rock" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">#BCAAA4</item>
+        <item name="colorButtonNormal">#BCAAA4</item>
+    </style>
+
+    <style name="button_ghost" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">#b48bbd</item>
+        <item name="colorButtonNormal">#b48bbd</item>
+    </style>
+
+    <style name="button_dragon" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">#7986CB</item>
+        <item name="colorButtonNormal">#7986CB</item>
+    </style>
+
+    <style name="button_dark" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">#414152</item>
+        <item name="colorButtonNormal">#414152</item>
+        <item name="android:textColor">#FAFAFA</item>/>
+
+    </style>
+
+    <style name="button_steel" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">#9cb4d5</item>
+        <item name="colorButtonNormal">#9cb4d5</item>
+    </style>
+
 </resources>

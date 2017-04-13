@@ -12,15 +12,7 @@
     android:background="#F4F4F4"
     tools:context="chimpokomon.com.example.pep.chimpokomon.BattleActivity"
     >
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/textoBatalla"
-        android:background="#b9d2d9"
-        android:text="text"
-        android:textColor="#383838"
-        />
+
     <FrameLayout
         android:id="@+id/layoutImgHPCPU"
         android:layout_width="wrap_content"
@@ -51,6 +43,11 @@
             android:id="@+id/button_attack3"
             android:text="1111"
             android:layout_weight=".5"
+            android:theme="@style/button_posion"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+
             />
 
         <Button
@@ -59,7 +56,9 @@
             android:id="@+id/button_attack4"
             android:text="2"
             android:layout_weight=".5"
-            />
+            android:theme="@style/button_flying"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"            />
 
     </LinearLayout>
     <LinearLayout
@@ -70,11 +69,16 @@
 
         <Button
 
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/button_attack1"
-        android:text="1111"
-        android:layout_weight=".5" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/button_attack1"
+            android:text="1111"
+            android:layout_weight=".5"
+            android:theme="@style/button_bug"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            />
 
         <Button
 
@@ -83,6 +87,9 @@
             android:id="@+id/button_attack2"
             android:text="2"
             android:layout_weight=".5"
+            android:theme="@style/button_water"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
             />
 
     </LinearLayout>
@@ -146,12 +153,23 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:progressDrawable="@drawable/progres_bar_color"
+            android:progressDrawable="@drawable/progres_bar_color_hp"
             android:progress="50"
             android:layout_toEndOf="@+id/textViewHPChinpoPlayer1"
             android:layout_below="@id/textViewNombreChinpoPlayer1"
             android:layout_marginTop="1pt"
             android:layout_marginRight="1pt"
+            />
+        <ProgressBar
+            android:id="@+id/progressBarSpeedPlayer1"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="1pt"
+            android:progressDrawable="@drawable/progres_bar_color_speed"
+            android:progress="10"
+            android:layout_below="@+id/progressBarHPPlayer1"
+            android:layout_alignLeft="@+id/progressBarHPPlayer1"
+            android:layout_alignRight="@+id/progressBarHPPlayer1"
             />
         <TextView
             android:id="@+id/textView_HPmax_Player1"
@@ -220,12 +238,23 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:progressDrawable="@drawable/progres_bar_color"
+            android:progressDrawable="@drawable/progres_bar_color_hp"
             android:progress="50"
             android:layout_toEndOf="@+id/textViewHPChinpoPlayer2"
             android:layout_below="@id/textViewNombreChinpoPlayer2"
             android:layout_marginTop="1pt"
             android:layout_marginRight="1pt"
+            />
+        <ProgressBar
+            android:id="@+id/progressBarSpeedPlayer2"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="1pt"
+            android:progressDrawable="@drawable/progres_bar_color_speed"
+            android:progress="60"
+            android:layout_below="@+id/progressBarHPPlayer2"
+            android:layout_alignLeft="@+id/progressBarHPPlayer2"
+            android:layout_alignRight="@+id/progressBarHPPlayer2"
             />
         <TextView
             android:id="@+id/textViewHPViewChinpoCPU"
@@ -235,13 +264,11 @@
             android:textColor="#39393d"
             android:layout_below="@id/progressBarHPPlayer2"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="2dp"
-
+            android:layout_marginTop="1pt"
 
             />
 
     </RelativeLayout>
-
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -273,27 +300,6 @@
 
     </RelativeLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button_fullRestore"
-        android:text="Restore"
-        android:layout_weight=".5"
-        android:layout_below="@id/layoutHPCPU"
-        android:layout_alignParentEnd="true"
-
-        />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button_attackCPU"
-        android:text="CPU"
-        android:layout_weight=".5"
-        android:layout_toStartOf="@id/button_fullRestore"
-        android:layout_below="@id/layoutHPCPU"
-        android:allowUndo="false"
-        android:focusableInTouchMode="false" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -309,7 +315,6 @@
         android:layout_alignParentStart="true"
 
         />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -321,6 +326,41 @@
         android:visibility="invisible"
         android:layout_alignTop="@id/layoutHPPlayer"
         android:layout_alignParentStart="true"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_fullRestore"
+        android:text="Restore"
+        android:layout_weight=".5"
+        android:visibility="visible"
+        android:layout_below="@+id/layoutHPCPU"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_attackCPU"
+        android:text="CPU"
+        android:layout_weight=".5"
+        android:layout_toStartOf="@id/button_fullRestore"
+        android:layout_below="@id/layoutHPCPU"
+        android:allowUndo="false"
+        android:focusableInTouchMode="false"
+        android:visibility="visible"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/textoBatalla"
+        android:background="#b9d2d9"
+        android:text="text"
+        android:textColor="#383838"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="3dp"
         />
 
 
