@@ -1,21 +1,17 @@
 package chimpokomon.com.example.pep.chimpokomon;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
-import android.os.Build;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.StyleRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import static chimpokomon.com.example.pep.chimpokomon.R.attr.background;
 
 public class BattleActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -23,6 +19,7 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
     ProgressBar pgrHPPlayer2, pgrHPPlayer1, progressBarTestAtkSpeedCPU, progressBarTestAtkSpeedPlayer1;
     MediaPlayer mpMusicBattle;
     Button btnAtaque1, btnAtaque2, btnAtaque3, btnAtaque4;
+
     //Variables para la velocidad de ataque
     int progresStatusCPU, progresStatusPlayer1, Token_CPU_Atacando, Token_Player1_Atacando;
 
@@ -37,17 +34,18 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
     TextView textViewNombreChinpoPlayer1, textViewNombreChinpoPlayer2;
     ImageView imagePlayer1, imagePlayer2;
     ImageView icon_Seleccion1, icon_Seleccion2, icon_Seleccion3;
+    ImageView icon_Seleccion4, icon_Seleccion5, icon_Seleccion6;
 
     //Se inicializa objeto motorBatalla y se pasan los ID de los 6 personajes
     MotorBatalla motorBatalla = new MotorBatalla(
             SelectCharacterActivity.seleccion1,
             SelectCharacterActivity.seleccion2,
             SelectCharacterActivity.seleccion3,
-            (int) (Math.random() * 3),
-            (int) (Math.random() * 3),
-            (int) (Math.random() * 3));
+            (int) (Math.random() * 4),
+            (int) (Math.random() * 4),
+            (int) (Math.random() * 4));
 
-    BDMoves moves = new BDMoves();
+    DatosMoves moves = new DatosMoves();
     Animaciones animaciones;
 
 
@@ -57,6 +55,11 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Full screen
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_battle);
 
         context = this;
@@ -110,10 +113,10 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
         btnAtaque2.setText(motorBatalla.player1_Actual.move2);
         btnAtaque3.setText(motorBatalla.player1_Actual.move3);
         btnAtaque4.setText(motorBatalla.player1_Actual.move4);
-        cargarTipoBoton(btnAtaque1);
-        cargarTipoBoton(btnAtaque2);
-        cargarTipoBoton(btnAtaque3);
-        cargarTipoBoton(btnAtaque4);
+        cargar_Tipo_Boton(btnAtaque1);
+        cargar_Tipo_Boton(btnAtaque2);
+        cargar_Tipo_Boton(btnAtaque3);
+        cargar_Tipo_Boton(btnAtaque4);
 
         //btnAtaque1.setTextAppearance(R.style.button_bug);
 
@@ -170,13 +173,21 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
         int resId20 = getResources().getIdentifier(name20, "drawable", getPackageName());
         imagePlayer2.setImageResource(resId20);
 
-        //Cargar Imagenes de los 3 seleccionados
+        //Cargar Imagenes de los 6 seleccionados
         icon_Seleccion1 = (ImageView) findViewById(R.id.img_Seleccion1);
         icon_Seleccion2 = (ImageView) findViewById(R.id.img_Seleccion2);
         icon_Seleccion3 = (ImageView) findViewById(R.id.img_Seleccion3);
         icon_Seleccion1.setOnClickListener(this);
         icon_Seleccion2.setOnClickListener(this);
         icon_Seleccion3.setOnClickListener(this);
+
+        //Iconos player2
+        icon_Seleccion4 = (ImageView) findViewById(R.id.img_Seleccion4);
+        icon_Seleccion5 = (ImageView) findViewById(R.id.img_Seleccion5);
+        icon_Seleccion6 = (ImageView) findViewById(R.id.img_Seleccion6);
+        icon_Seleccion4.setOnClickListener(this);
+        icon_Seleccion5.setOnClickListener(this);
+        icon_Seleccion6.setOnClickListener(this);
 
         //Hacer imagen transparente si muere personaje
         if(motorBatalla.player1_Personaje1.hp ==0){
@@ -187,6 +198,15 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
         }
         if(motorBatalla.player1_Personaje3.hp ==0){
             animaciones.animation_icono_morir(icon_Seleccion3);
+        }
+        if(motorBatalla.player2_Personaje1.hp ==0){
+            animaciones.animation_icono_morir(icon_Seleccion4);
+        }
+        if(motorBatalla.player2_Personaje2.hp ==0){
+            animaciones.animation_icono_morir(icon_Seleccion5);
+        }
+        if(motorBatalla.player2_Personaje3.hp ==0){
+            animaciones.animation_icono_morir(icon_Seleccion6);
         }
 
         String name1 = "gridview_" + motorBatalla.player1_Personaje1.nombre.toLowerCase();
@@ -201,15 +221,27 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
         int resId3 = getResources().getIdentifier(name3, "drawable", getPackageName());
         icon_Seleccion3.setImageResource(resId3);
 
+        String name4 = "gridview_" + motorBatalla.player2_Personaje1.nombre.toLowerCase();
+        int resId4 = getResources().getIdentifier(name4, "drawable", getPackageName());
+        icon_Seleccion4.setImageResource(resId4);
+
+        String name5 = "gridview_" + motorBatalla.player2_Personaje2.nombre.toLowerCase();
+        int resId5 = getResources().getIdentifier(name5, "drawable", getPackageName());
+        icon_Seleccion5.setImageResource(resId5);
+
+        String name6 = "gridview_" + motorBatalla.player2_Personaje3.nombre.toLowerCase();
+        int resId6 = getResources().getIdentifier(name6, "drawable", getPackageName());
+        icon_Seleccion6.setImageResource(resId6);
+
     }
 
-    public void cargarTipoBoton(Button button){
+    public void cargar_Tipo_Boton(Button button){
         String move_type;
         int i=0;
-        while ( button.getText() != moves.bd_ataques[i][0]){
+        while ( button.getText() != moves.ataques[i][0]){
             i = i + 1;
         }
-        move_type = moves.bd_ataques[i][1];
+        move_type = moves.ataques[i][1];
         String name = "button_style_" + move_type;
         int resId = getResources().getIdentifier(name, "drawable", getPackageName());
         button.setBackgroundResource( resId );
@@ -260,18 +292,17 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
 
             //BOTONES DE TEST
             case R.id.button_fullRestore:
-                Token_CPU_Atacando +=1;
-                //attack_speed_CPU();
+
+                fullRestore();
 
                 break;
 
             case R.id.button_attackCPU:
-
+                Token_CPU_Atacando +=1;
 
                 break;
         }
     }
-
 
     public void atacar_player1(String move) {
         animaciones = new Animaciones(imagePlayer1, imagePlayer2, context);
@@ -291,14 +322,8 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
     public void atacar_CPU() {
         animaciones = new Animaciones(imagePlayer1, imagePlayer2, context);
 
-        //Inicializa el combate de CPU prueba
-        String ataqueCPU;
-        if (1 == (int) (Math.random() * 2)) {
-            ataqueCPU = motorBatalla.player2_Actual.move1;
-        } else {
-            ataqueCPU = motorBatalla.player2_Actual.move2;
-        }
-
+        AI ai = new AI();
+        String  ataqueCPU = ai.bestMove(motorBatalla.player1_Actual,motorBatalla.player2_Actual );
         motorBatalla.combate(ataqueCPU, 2);
         textViewBattle.setText(motorBatalla.leyenda_de_textView + " Daño:" + motorBatalla.damage_done);
         actualizarProgresBarHP((int) motorBatalla.player1_Actual.hp, (int) motorBatalla.player2_Actual.hp);
@@ -383,7 +408,6 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
         btnAtaque4.setEnabled(a);
     }
 
-
     //HILOS que utilizan la velocidad de ataque para habilitar los ataques
     public void attack_speed_CPU(){
         Token_CPU_Atacando +=1;
@@ -409,7 +433,8 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
                         }
                     });
                     try{
-                        Thread.sleep(50);
+                        //Speed promedio 6000 y se le resta la velocidad de personaje x 10
+                        Thread.sleep((long) (60 - motorBatalla.player2_Actual.speed / 10));
                     }
                     catch (InterruptedException e){e.printStackTrace();}
                 }
@@ -439,7 +464,8 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
                         }
                     });
                     try{
-                        Thread.sleep(50);
+                        //Speed promedio 6000 y se le resta la velocidad de personaje x 10
+                        Thread.sleep((long) (60 - motorBatalla.player1_Actual.speed / 10));
                     }
                     catch (InterruptedException e){e.printStackTrace();}
                 }
@@ -447,10 +473,6 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
         }).start();
 
     }
-
-
-
-
 
     //FullRestore es de prueba, actualizar ProgersBarHP cambia la barra de HP y el contador de abajo
     public void fullRestore() {

@@ -7,11 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
-public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.AnimeViewHolder> {
+public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.ViewHolder> {
     private List<CharactersCardView> items;
     //Se crea eel objeto de MyInterface para llamar al metodo en SelectCharacter
     private static MyInterface mAdapterCallback;
@@ -25,41 +24,47 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.An
         }
     }
 
-    public static class AnimeViewHolder extends RecyclerView.ViewHolder
+    public static class ViewHolder extends RecyclerView.ViewHolder
     {
 
         // Campos respectivos de un item
         public ImageView imagen;
         public TextView nombre;
-        public TextView visitas;
+        public TextView hp, speed, attack, defecne;
         public ImageView tipo_elemento;
 
-        public AnimeViewHolder(View v) {
+        public ViewHolder(View v) {
             super(v);
             imagen = (ImageView) v.findViewById(R.id.imagen);
             nombre = (TextView) v.findViewById(R.id.nombre);
-            visitas = (TextView) v.findViewById(R.id.visitas);
+            hp = (TextView) v.findViewById(R.id.hp);
+            speed = (TextView) v.findViewById(R.id.speed);
+            attack = (TextView) v.findViewById(R.id.attack);
+            defecne = (TextView) v.findViewById(R.id.defence);
             tipo_elemento = (ImageView) v.findViewById(R.id.tipo_elemento);
 
-            itemView.setOnClickListener(new View.OnClickListener()
-            {
+            itemView.setOnClickListener(new View.OnClickListener(){
                 @Override
+
                 public void onClick(View v)
                 {
                     try {
-                        if ( SelectCharacterActivity.flag_Selecction == 1) {
+                        if ( SelectCharacterActivity.flag_Selecction == 1 ) {
                             SelectCharacterActivity.seleccion1 =  getAdapterPosition();
+                            mAdapterCallback.foo();
                         }
-                        else if (SelectCharacterActivity.flag_Selecction == 2){
+                        else if (SelectCharacterActivity.flag_Selecction == 2 && SelectCharacterActivity.seleccion1 !=  getAdapterPosition())  {
                             SelectCharacterActivity.seleccion2 = getAdapterPosition();
+                            mAdapterCallback.foo();
                         }
-                        else if (SelectCharacterActivity.flag_Selecction == 3){
+                        else if (SelectCharacterActivity.flag_Selecction == 3 && (SelectCharacterActivity.seleccion1 !=  getAdapterPosition() && SelectCharacterActivity.seleccion2 !=  getAdapterPosition())){
                             SelectCharacterActivity.seleccion3 = getAdapterPosition();
+                            mAdapterCallback.foo();
                         }
 
-                        mAdapterCallback.foo();
+
                     } catch (ClassCastException exception) {
-                        // do something
+
                     }
                 }
             });
@@ -81,17 +86,20 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.An
     }
 
     @Override
-    public AnimeViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.character_cardview, viewGroup, false);
-        return new AnimeViewHolder(v);
+        return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(AnimeViewHolder viewHolder, int position) {
+    public void onBindViewHolder(ViewHolder viewHolder, int position) {
         viewHolder.imagen.setImageResource(items.get(position).getImagen());
         viewHolder.nombre.setText(items.get(position).getNombre());
-        viewHolder.visitas.setText("Attack "+String.valueOf(items.get(position).getVisitas()));
+        viewHolder.hp.setText("Hp "+String.valueOf(items.get(position).getHp()));
+        viewHolder.speed.setText("Speed "+String.valueOf(items.get(position).getSpeed()));
+        viewHolder.attack.setText("Atk "+String.valueOf(items.get(position).getAttack()));
+        viewHolder.defecne.setText("Def "+String.valueOf(items.get(position).getDefence()));
         viewHolder.tipo_elemento.setImageResource(items.get(position).getType());
 
     }

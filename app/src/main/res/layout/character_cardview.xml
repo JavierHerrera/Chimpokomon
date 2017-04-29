@@ -30,10 +30,42 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Small Text"
-            android:id="@+id/visitas"
+            android:text="HP"
+            android:id="@+id/hp"
             android:layout_below="@+id/nombre"
             android:layout_alignLeft="@+id/nombre" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="SPEED"
+            android:id="@+id/speed"
+            android:layout_below="@+id/hp"
+            android:layout_alignLeft="@+id/nombre" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Atk"
+            android:id="@+id/attack"
+            android:layout_below="@+id/nombre"
+            android:layout_toRightOf="@+id/hp"
+            android:layout_marginLeft="40dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Def"
+            android:id="@+id/defence"
+            android:layout_below="@+id/attack"
+            android:layout_toRightOf="@+id/hp"
+            android:layout_marginLeft="40dp"
+            />
+
         <View
             android:layout_width="wrap_content"
             android:layout_height="1dp"

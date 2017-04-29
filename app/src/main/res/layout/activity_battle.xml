@@ -5,10 +5,6 @@
     android:id="@+id/activity_battle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:background="#F4F4F4"
     tools:context="chimpokomon.com.example.pep.chimpokomon.BattleActivity"
     >
@@ -299,7 +295,36 @@
             android:clickable="true" />
 
     </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutHPCPU"
+        android:layout_alignParentEnd="true">
 
+
+        <ImageView
+            android:id="@+id/img_Seleccion4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/gridview_shoe"
+            android:layout_alignParentTop="true"
+            />
+        <ImageView
+            android:id="@+id/img_Seleccion5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/gridview_penguin"
+            android:layout_toEndOf="@id/img_Seleccion4"
+            />
+        <ImageView
+            android:id="@+id/img_Seleccion6"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/gridview_lambtron"
+            android:layout_toEndOf="@id/img_Seleccion5"
+            android:clickable="true" />
+
+    </RelativeLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -313,6 +338,7 @@
         android:layout_alignBottom="@id/layoutHPCPU"
         android:layout_marginBottom="20dp"
         android:layout_alignParentStart="true"
+        android:layout_marginLeft="10dp"
 
         />
     <TextView
@@ -326,6 +352,7 @@
         android:visibility="invisible"
         android:layout_alignTop="@id/layoutHPPlayer"
         android:layout_alignParentStart="true"
+        android:layout_marginLeft="10dp"
         />
 
     <Button
@@ -335,7 +362,8 @@
         android:text="Restore"
         android:layout_weight=".5"
         android:visibility="visible"
-        android:layout_below="@+id/layoutHPCPU"
+        android:layout_alignBaseline="@+id/button_attackCPU"
+        android:layout_alignBottom="@+id/button_attackCPU"
         android:layout_alignParentEnd="true" />
 
     <Button
@@ -345,11 +373,10 @@
         android:text="CPU"
         android:layout_weight=".5"
         android:layout_toStartOf="@id/button_fullRestore"
-        android:layout_below="@id/layoutHPCPU"
         android:allowUndo="false"
         android:focusableInTouchMode="false"
         android:visibility="visible"
-        />
+        android:layout_below="@+id/layoutImgHPCPU" />
 
     <TextView
         android:layout_width="match_parent"

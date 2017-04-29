@@ -6,8 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.Button;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class SelectCharacterActivity extends AppCompatActivity implements MyInte
     static int flag_Selecction = 1;
     static int seleccion1, seleccion2, seleccion3;
     ImageView icon1_Player, icon2_Player,icon3_Player;
-    BDChinpokomones BDChinpo = new BDChinpokomones();
+    DatosChinpokomones BDChinpo = new DatosChinpokomones();
     private CharactersAdapter mMyAdapter;
 
     //foo es la conexion para llamar metodos, entre el adapter y activity a travez de una interface
@@ -39,6 +39,10 @@ public class SelectCharacterActivity extends AppCompatActivity implements MyInte
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Full screen
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_select_character);
 
         //Se pasa el context al objeto mMyAdapter
@@ -56,9 +60,15 @@ public class SelectCharacterActivity extends AppCompatActivity implements MyInte
         // Inicializar Animes
         List items = new ArrayList();
 
-        items.add(new CharactersCardView(R.drawable.gridview_mousetik, "Mousetik", 230, R.drawable.type_grass));
-        items.add(new CharactersCardView(R.drawable.gridview_penguin, "Penguin", 456, R.drawable.type_water));
-        items.add(new CharactersCardView(R.drawable.gridview_shoe, "Shoe", 342, R.drawable.type_fire));
+        //Carga los elementos del cardview
+        for (int i = 0; i < BDChinpo.c.length; i = i + 1) {
+
+            String nameIcon = "gridview_" + BDChinpo.c[i][1].toLowerCase();
+            int resIdIcon = getResources().getIdentifier(nameIcon, "drawable", getPackageName());
+            String nameType = "type_" + BDChinpo.c[i][2].toLowerCase();
+            int resIdType = getResources().getIdentifier(nameType, "drawable", getPackageName());
+            items.add(new CharactersCardView(resIdIcon, BDChinpo.c[i][1],BDChinpo.c[i][4],BDChinpo.c[i][9], BDChinpo.c[i][3],BDChinpo.c[i][10],resIdType));
+        }
 
         // Obtener el Recycler
         recycler = (RecyclerView) findViewById(R.id.reciclador);
@@ -75,6 +85,8 @@ public class SelectCharacterActivity extends AppCompatActivity implements MyInte
 
     //Se activa desde el adaptador al realizar un click en una cardview.Carga las imagenes pequeñas
     public  void callbackclick() {
+
+
 
         if (seleccion1 < 99 && flag_Selecction == 1) {
 
@@ -93,9 +105,10 @@ public class SelectCharacterActivity extends AppCompatActivity implements MyInte
         } else if (seleccion3 < 99 && flag_Selecction ==3){
 
             cargar_Icono(icon3_Player,seleccion3,"icon3_Player");
+            flag_Selecction = flag_Selecction +1;
 
-            //Unavez Insertado las 3 imagenes se cambia de activity
-            //Detener musica e inicia sonido de seleccion de caracter
+            //Una vez i nsertado las 3 imagenes se cambia de activity
+            //Se detiene la musica e inicia sonido de seleccion de caracter
             mpFinalizarSeleccion = MediaPlayer.create(this, R.raw.super_street_fighter_personaje_seleccionado);
             mpStreetFighter.stop();
             mpFinalizarSeleccion.start();
