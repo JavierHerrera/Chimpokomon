@@ -22,6 +22,7 @@ public class MotorBatalla {
     Personaje player2_Personaje1, player2_Personaje2, player2_Personaje3;
     Personaje atacante, defensor;
     Personaje player1_Actual,player2_Actual;
+    Move ataque;
 
 
     public  MotorBatalla( int id, int id2, int id3, int id4, int id5, int id6){
@@ -34,15 +35,15 @@ public class MotorBatalla {
         player2_Personaje3 = new Personaje(id6);
     }
 
-    public void combate(String ataque, int a) {
-
+    public void combate(Move ataque, int a) {
+        this.ataque = ataque;
         flag_quienAtacayDefiende = a;
 
         //Inicializa modificador a 1 por default
         modificador = 1;
         leyenda_de_textView = "";
         move_damage = 1;
-        move_used = ataque;
+        move_used = ataque.name;
         damage_done = 0;
         flag_ataque = 1;
         flag_ataque_critico = 0;
@@ -59,11 +60,11 @@ public class MotorBatalla {
         }
 
         if (defensor.hp >0 && atacante.hp >0){
-            evasion(atacante);}
+            acuracy(atacante);}
     }
 
-    private void evasion(Personaje atacante){
-        if ( 1 == (int) (Math.random() * 30) ){
+    private void acuracy(Personaje atacante){
+        if ( ataque.acuracy <= (int) (Math.random() * 100) ){
             leyenda_de_textView = atacante.nombre + " used " + move_used+ ". Attack missed!";
             flag_ataque = 0;
         }
@@ -99,10 +100,10 @@ public class MotorBatalla {
             flag_ataque = 1;
         }
 
-        core_Atk();
+        coreAtk();
     }
 
-    private void core_Atk(){
+    private void coreAtk(){
         if (move_type == atacante.tipo){
             modificador = modificador * 1.5;
         }

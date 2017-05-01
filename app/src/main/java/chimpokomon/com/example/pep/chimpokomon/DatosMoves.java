@@ -45,35 +45,35 @@ public class DatosMoves {
         ataques	[1]	[1]=	"water";
         ataques	[1]	[2]=	"40";
         ataques	[1]	[3]=	"100";
-        ataques	[1]	[4]=	"low_Speed_Op";
+        ataques	[1]	[4]=	"low speed";
         ataques	[1]	[5]=	"10";
 
         ataques	[2]	[0]=	"Vine Whip";
         ataques	[2]	[1]=	"grass";
         ataques	[2]	[2]=	"45";
         ataques	[2]	[3]=	"100";
-        ataques	[2]	[4]=	"no efect";
+        ataques	[2]	[4]=	"no effect";
         ataques	[2]	[5]=	"0";
 
         ataques	[3]	[0]=	"Quick Attack";
         ataques	[3]	[1]=	"normal";
         ataques	[3]	[2]=	"40";
         ataques	[3]	[3]=	"1000";
-        ataques	[3]	[4]=	"no_Miss";
+        ataques	[3]	[4]=	"no miss";
         ataques	[3]	[5]=	"0";
 
         ataques	[4]	[0]=	"Scratch";
         ataques	[4]	[1]=	"normal";
         ataques	[4]	[2]=	"40";
         ataques	[4]	[3]=	"100";
-        ataques	[4]	[4]=	"no efect";
+        ataques	[4]	[4]=	"no effect";
         ataques	[4]	[5]=	"0";
 
         ataques	[5]	[0]=	"Tackle";
         ataques	[5]	[1]=	"normal";
         ataques	[5]	[2]=	"40";
         ataques	[5]	[3]=	"100";
-        ataques	[5]	[4]=	"no efect";
+        ataques	[5]	[4]=	"no effect";
         ataques	[5]	[5]=	"0";
 
         ataques	[6]	[0]=	"Bite";
@@ -87,7 +87,7 @@ public class DatosMoves {
         ataques	[7]	[1]=	"steel";
         ataques	[7]	[2]=	"50";
         ataques	[7]	[3]=	"95";
-        ataques	[7]	[4]=	"rise_User_ATK";
+        ataques	[7]	[4]=	"rise user ATK";
         ataques	[7]	[5]=	"10";
 
         ataques	[8]	[0]=	"Ice Beam";
@@ -101,15 +101,15 @@ public class DatosMoves {
         ataques	[9]	[1]=	"posion";
         ataques	[9]	[2]=	"65";
         ataques	[9]	[3]=	"100";
-        ataques	[9]	[4]=	"poison_Op";
+        ataques	[9]	[4]=	"poison";
         ataques	[9]	[5]=	"30";
 
         ataques	[10]	[0]=	"Giga Drain";
         ataques	[10]	[1]=	"grass";
         ataques	[10]	[2]=	"75";
         ataques	[10]	[3]=	"100";
-        ataques	[10]	[4]=	"drain_50";
-        ataques	[10]	[5]=	"0";
+        ataques	[10]	[4]=	"drain 50";
+        ataques	[10]	[5]=	"100";
 
         ataques	[11]	[0]=	"Spark";
         ataques	[11]	[1]=	"electric";
@@ -129,42 +129,42 @@ public class DatosMoves {
         ataques	[13]	[1]=	"fighting";
         ataques	[13]	[2]=	"75";
         ataques	[13]	[3]=	"100";
-        ataques	[13]	[4]=	"no efect";
+        ataques	[13]	[4]=	"no effect";
         ataques	[13]	[5]=	"0";
 
         ataques	[14]	[0]=	"Magical Leaf";
         ataques	[14]	[1]=	"grass";
         ataques	[14]	[2]=	"75";
-        ataques	[14]	[3]=	"60";
-        ataques	[14]	[4]=	"no_Miss";
+        ataques	[14]	[3]=	"100";
+        ataques	[14]	[4]=	"no miss";
         ataques	[14]	[5]=	"0";
 
         ataques	[15]	[0]=	"Rock Slide";
         ataques	[15]	[1]=	"rock";
         ataques	[15]	[2]=	"75";
         ataques	[15]	[3]=	"90";
-        ataques	[15]	[4]=	"no_Miss";
-        ataques	[15]	[5]=	"0";
+        ataques	[15]	[4]=	"flinch";
+        ataques	[15]	[5]=	"30";
 
         ataques	[16]	[0]=	"Slam";
         ataques	[16]	[1]=	"normal";
         ataques	[16]	[2]=	"80";
         ataques	[16]	[3]=	"75";
-        ataques	[16]	[4]=	"no Miss";
+        ataques	[16]	[4]=	"no miss";
         ataques	[16]	[5]=	"0";
 
         ataques	[17]	[0]=	"Bug Bite";
         ataques	[17]	[1]=	"bug";
         ataques	[17]	[2]=	"60";
         ataques	[17]	[3]=	"100";
-        ataques	[17]	[4]=	"no efect";
+        ataques	[17]	[4]=	"no effect";
         ataques	[17]	[5]=	"0";
 
         ataques	[18]	[0]=	"Aerial Ace";
         ataques	[18]	[1]=	"flying";
         ataques	[18]	[2]=	"60";
         ataques	[18]	[3]=	"100";
-        ataques	[18]	[4]=	"no Miss";
+        ataques	[18]	[4]=	"no miss";
         ataques	[18]	[5]=	"0";
 
         ataques	[19]	[0]=	"Poison Jab";

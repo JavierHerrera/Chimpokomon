@@ -11,7 +11,7 @@ public class Animaciones {
 
     private ImageView imagePlayer1, imagePlayer2;
     private Context context;
-
+    private Animation animation;
 
     public  Animaciones(ImageView imagePlayer1,ImageView imagePlayer2, Context context){
         this.imagePlayer1 = imagePlayer1;
@@ -19,97 +19,78 @@ public class Animaciones {
         this.context = context;
     }
 
-    public void animation_ATK_player1(TextView texto, int flag_ataque, String damage_done){
-
-        Animation animation;
+    //Mueve hacia enfrente la imagen del personaje player1
+    public void animationPlayer1ATK(TextView texto, int flag_ataque, String damage_done){
         animation = AnimationUtils.loadAnimation(context,R.anim.anim_atacar_player1);
         imagePlayer1.startAnimation(animation);
-        animation_recibir_golpe(imagePlayer2);
-        animation_texto_atacar(texto, flag_ataque, damage_done);
+        animationTakeHit(imagePlayer2);
+        animationText(texto, flag_ataque, damage_done);
     }
 
-    public void animation_ATK_player2(TextView texto, int flag_ataque, String damage_done){
-
-        Animation animation;
+    //Mueve hacia enfrente la imagen del personaje player1
+    public void animationPlayer2ATK(TextView texto, int flag_ataque, String damage_done){
         animation = AnimationUtils.loadAnimation(context,R.anim.anim_atacar_player2);
         imagePlayer2.startAnimation(animation);
-        animation_recibir_golpe(imagePlayer1);
-        animation_texto_atacar(texto, flag_ataque, damage_done);
+        animationTakeHit(imagePlayer1);
+        animationText(texto, flag_ataque, damage_done);
     }
 
-    public void animation_recibir_golpe(ImageView m){
-
-        Animation animation;
+    //Mueve la imagen del personaje al recibir un golpe
+    public void animationTakeHit(ImageView m){
         animation = AnimationUtils.loadAnimation(context,R.anim.anim_recibir_golpe);
         m.startAnimation(animation);
     }
 
-    public void animation_texto_atacar(TextView texto, int flag_ataque, String damage_done){
-
-        Animation animation;
+    //Muestra el daño realizado con diferentes animacioens segun el caso
+    public void animationText(TextView texto, int flag_ataque, String damage_done){
         animation = AnimationUtils.loadAnimation(context,R.anim.anim_texto_atacar);
-
-
 
         if (flag_ataque == 0){
             texto.setTextColor(Color.parseColor("#778899"));
             texto.setTextSize(17);
             texto.setText("Miss");
-            texto.startAnimation(animation);
-        }
-        else if(flag_ataque == 1){
+            texto.startAnimation(animation);                        //Miss
+        }else if(flag_ataque == 1){
             texto.setTextColor(Color.parseColor("#FF4500"));
             texto.setTextSize(17);
             texto.setText(damage_done);
-            texto.startAnimation(animation);
-        }
-
-        else if(flag_ataque == 2){
+            texto.startAnimation(animation);                       //Normal hit
+        }else if(flag_ataque == 2){
             texto.setTextColor(Color.parseColor("#FF0000"));
             texto.setTextSize(22);
             texto.setText(damage_done);
-            texto.startAnimation(animation);
-        }
-
-        else if(flag_ataque == 3){
+            texto.startAnimation(animation);                       //Super effective hit
+        }else if(flag_ataque == 3){
             texto.setTextColor(Color.parseColor("#FFA500"));
             texto.setTextSize(12);
-            texto.setText(damage_done);
+            texto.setText(damage_done);                            //Not very effective hit
             texto.startAnimation(animation);
-        }
-
-        else if(flag_ataque == 11){
+        }else if(flag_ataque == 11){
             texto.setTextColor(Color.parseColor("#FF4500"));
             texto.setTextSize(17);
             texto.setText(damage_done);
-            critical(texto);
-        }
-        else if(flag_ataque == 12){
+            critical(texto);                                      //Normal critical hit
+        }else if(flag_ataque == 12){
             texto.setTextColor(Color.parseColor("#FF0000"));
             texto.setTextSize(22);
             texto.setText(damage_done);
-            critical(texto);
-        }
-
-        else if(flag_ataque == 13){
+            critical(texto);                                       //Super effective critical hit
+        }else if(flag_ataque == 13){
             texto.setTextColor(Color.parseColor("#FFA500"));
             texto.setTextSize(12);
             texto.setText(damage_done);
-            critical(texto);
+            critical(texto);                                       //Not very effective critical hit
         }
-
     }
 
+    //Incrementa el tamaño del texto cuando es critical
     private void critical(TextView texto){
-
-        Animation animation;
         animation = AnimationUtils.loadAnimation(context,R.anim.aim_critical);
         texto.startAnimation(animation);
     }
 
-    public void animation_icono_morir(ImageView m){
-
-        Animation animation;
+    //Desvanece el icono del personaque muerto
+    public void animationIconoMorir(ImageView m){
         animation = AnimationUtils.loadAnimation(context,R.anim.aim_transparencia_icono_morir);
         m.startAnimation(animation);
     }

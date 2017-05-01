@@ -16,7 +16,9 @@ import java.util.List;
 public class SelectCharacterActivity extends AppCompatActivity implements MyInterface {
 
     // Variable para la musica
-    private MediaPlayer mpStreetFighter, mpFinalizarSeleccion, mpSeleccionarPersonaje;
+    private MediaPlayer mpStreetFighter;
+    private MediaPlayer mpFinalizarSeleccion;
+    private MediaPlayer mpSeleccionarPersonaje;
 
     // Declarar instancias globales de RecyclerView
     private RecyclerView recycler;
@@ -25,7 +27,7 @@ public class SelectCharacterActivity extends AppCompatActivity implements MyInte
 
     //Variables static para seleccionar el equipo
     static int flag_Selecction = 1;
-    static int seleccion1, seleccion2, seleccion3;
+    static int seleccion1, seleccion2, seleccion3,seleccion4,seleccion5,seleccion6;
     ImageView icon1_Player, icon2_Player,icon3_Player;
     DatosChinpokomones BDChinpo = new DatosChinpokomones();
     private CharactersAdapter mMyAdapter;
@@ -52,6 +54,7 @@ public class SelectCharacterActivity extends AppCompatActivity implements MyInte
         seleccion1 = 99;
         seleccion2 = 99;
         seleccion3 = 99;
+        seleccionarPersonajesCPU();
 
         //Inicia audio de streetfighter
         mpStreetFighter = MediaPlayer.create(SelectCharacterActivity.this, R.raw.streetfightersong);
@@ -124,6 +127,7 @@ public class SelectCharacterActivity extends AppCompatActivity implements MyInte
             });
         }
     }
+
     public  void cargar_Icono(ImageView icon, int seleccion, String nombre_ImageView){
 
         //Buscar nombre del chinpokomon y usarlo para buscar e insertar su imagen
@@ -132,6 +136,25 @@ public class SelectCharacterActivity extends AppCompatActivity implements MyInte
         String name = "gridview_" +BDChinpo.c[seleccion][1].toLowerCase();
         int resId = getResources().getIdentifier(name, "drawable", getPackageName());
         icon.setImageResource(resId);
+
+    }
+
+    public  void seleccionarPersonajesCPU(){
+        int a = 99, b = 99, c = 99;
+
+        a = (int) (Math.random() * BDChinpo.c.length);
+
+        do {
+            b = (int) (Math.random() * BDChinpo.c.length);
+        }while (a == b);
+
+        do {
+            c = (int) (Math.random() * BDChinpo.c.length);
+        }while (b == c || a == c);
+
+        seleccion4 = a;
+        seleccion5 = b;
+        seleccion6 = c;
 
     }
 }
