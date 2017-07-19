@@ -11,7 +11,7 @@ public class Animaciones {
 
     private ImageView imagePlayer1, imagePlayer2;
     private Context context;
-    private Animation animation;
+    private Animation animation,animationTest;
 
     public  Animaciones(ImageView imagePlayer1,ImageView imagePlayer2, Context context){
         this.imagePlayer1 = imagePlayer1;
@@ -92,6 +92,29 @@ public class Animaciones {
     //Desvanece el icono del personaque muerto
     public void animationIconoMorir(ImageView m){
         animation = AnimationUtils.loadAnimation(context,R.anim.aim_transparencia_icono_morir);
+
+
+    animation.setAnimationListener(new Animation.AnimationListener() {
+        @Override
+        public void onAnimationStart(Animation animation) {
+
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+
+
+            }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+            TextView texto = null;
+            texto.setText("yeeei");
+            texto.startAnimation(animation);
+        }
+    });
+
         m.startAnimation(animation);
+
     }
 }

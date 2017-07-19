@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -17,6 +19,7 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
     DatosMoves moves = new DatosMoves();
     Animaciones animaciones;
     MediaPlayer mpMusicBattle;
+    MediaPlayer mpVictoryTeam1;
     Context context;
     Move move2;
 
@@ -59,9 +62,9 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
             SelectCharacterActivity.seleccion1,
             SelectCharacterActivity.seleccion2,
             SelectCharacterActivity.seleccion3,
-            (int) (Math.random() * 5),
-            (int) (Math.random() * 5),
-            (int) (Math.random() * 5));
+            SelectCharacterActivity.seleccion4,
+            SelectCharacterActivity.seleccion5,
+            SelectCharacterActivity.seleccion6);            //4, 5 y 6  son de CPU
 
     // Se utiliza para los hilos que cargan las progessbar de la velocidad de ataque
     final Handler mHandler = new Handler();
@@ -84,6 +87,7 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
         motorBatalla.player2_Actual = motorBatalla.player2_Personaje2;
 
         //Inicia musica de batalla
+        mpVictoryTeam1 = MediaPlayer.create(this, R.raw.victory_theme_chrono_trigger);
         mpMusicBattle = MediaPlayer.create(this, R.raw.trainer_battle_song);
         mpMusicBattle.start();
 
@@ -330,6 +334,10 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
         txtViewBattle.setText(motorBatalla.leyenda_de_textView + " Daño:" + motorBatalla.damage_done);
         actualizarProgresBarHP((int) motorBatalla.player1_Actual.hp, (int) motorBatalla.player2_Actual.hp);
         animaciones.animationPlayer2ATK(txtInformacionAtacar1, motorBatalla.flag_ataque,Integer.toString(motorBatalla.damage_done));
+
+
+
+
     }
 
     //Actualizar ProgersBarHP cambia la barra de HP y el contador de abajo
@@ -395,6 +403,9 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
             txtViewBattle.setText("PERDISTE");
         } else if ((motorBatalla.player2_Personaje1.hp + motorBatalla.player2_Personaje2.hp + motorBatalla.player2_Personaje3.hp) == 0) {
             txtViewBattle.setText("GANASTE");
+            mpMusicBattle.stop();
+            mpVictoryTeam1.start();
+
         } else if (motorBatalla.player2_Actual.hp == 0) {
             cambiarPersonajeCPU();
         }
@@ -482,6 +493,8 @@ public class BattleActivity extends AppCompatActivity implements View.OnClickLis
         txtHPPlayer1.setText("" + (int) motorBatalla.player1_Actual.hp);
         txtHPPlayer2.setText("" + (int) motorBatalla.player2_Actual.hp);
     }
+
+    
 }
 
 
